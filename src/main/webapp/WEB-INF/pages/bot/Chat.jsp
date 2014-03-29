@@ -58,6 +58,7 @@
 </script>
 </head>
 
+<%@ include file="../share/header.jsp" %>
 <body>
 	<div class="container">
 		

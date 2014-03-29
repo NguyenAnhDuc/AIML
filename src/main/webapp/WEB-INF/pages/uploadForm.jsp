@@ -63,7 +63,7 @@
 </body>
 <script>
 	function Submit(){
-		if ($("#exampleInputFile").val().toString().contains(".aiml")){
+		if ($("#exampleInputFile").val().toString().indexOf(".aiml") != -1){
 			$("#submitBtn").click();
 		}
 		else{

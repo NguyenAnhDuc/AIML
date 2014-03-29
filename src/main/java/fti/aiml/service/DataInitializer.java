@@ -48,7 +48,7 @@ public class DataInitializer {
 		user.setLastname("Doe");
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_USER"));
-		user.setUsername("bob");		
+		user.setUsername("fti");		
 		userService.create(user);
 		//simulate account activation
 		user.setEnabled(true);
@@ -60,7 +60,7 @@ public class DataInitializer {
 		user.setLastname("Doe");
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_ADMIN"));
-		user.setUsername("jim");	
+		user.setUsername("admin");	
 		userService.create(user);
 		user.setEnabled(true);
 		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
@@ -69,7 +69,7 @@ public class DataInitializer {
 		user = new UserAccount();
 		user.setFirstname("Ted");
 		user.setLastname("Doe");
-		user.setPassword(demoPasswordEncoded);
+		user.setPassword(encoder.encode("demo"));
 		user.addRole(userService.getRole("ROLE_USER"));
 		user.addRole(userService.getRole("ROLE_ADMIN"));
 		user.setUsername("ted");	
@@ -81,7 +81,7 @@ public class DataInitializer {
 		BotInfo bot = new BotInfo();
 		bot.setBotname("test");
 		bot.setLanguage("EN");
-		bot.setUserID("bob");
+		bot.setUserID("fti");
 		botService.create(bot);
 	}
 }

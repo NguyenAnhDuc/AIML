@@ -1,3 +1,4 @@
+<%@page import="fti.aiml.domail.UserAccount"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <!--[if lt IE 7]>
@@ -20,14 +21,12 @@
 <meta name="viewport" content="width=device-width">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <script src="../resources/js/vendor/jquery-1.9.1.min.js"></script>
-
-</script>
+<link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css">
+<script src="../resources/js/vendor/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="../resources/js/vendor/jquery.confirm.min.js">
-</script>
+</script>    
 <style>
 /* body {
 	padding-top: 50px;
@@ -35,7 +34,6 @@
 }
  */
 .row {
-	/* margin-top: 40px; */
 	padding: 0 10px;
 }
 
@@ -143,34 +141,29 @@
 		});
 		$('[data-toggle="tooltip"]').tooltip();
 	})
-
-	
 </script>
-<%@ include file="../share/header.jsp"%>
+<%@ include file="../share/AdminHeader.jsp" %>
 </head>
 
 
 <body>
-    
-
+	
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2 col-md-offset-5"></div>
+		    <div class="col-md-2 col-md-offset-5">
+		    	
+		    </div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-			<h4>
-				Click the filter icon <small>(<i
-					class="glyphicon glyphicon-filter"></i>)
-				</small> to filter by bot name
-			</h4>
-			</div>
-		</div>
+		<h4>
+			Click the filter icon <small>(<i
+				class="glyphicon glyphicon-filter"></i>)
+			</small> to filter by user name
+		</h4>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Bots</h3>
+						<h3 class="panel-title">Users</h3>
 						<div class="pull-right">
 							<span class="clickable filter" data-toggle="tooltip"
 								title="Toggle table filter" data-container="body"> <i
@@ -187,36 +180,34 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Bot Name</th>
+								<th> UserName</th>
 								<!-- <th>Language</th> -->
-								<th>Action</th>
-								<th>Action</th>
-								<th>Action</th>
+								<th> Status </th>
+								<th> Action </th>
 								<!-- <th> Action </th> -->
-
-
+								
+								
 							</tr>
 						</thead>
 						<tbody>
-							<%
-								int i = 0;
-							%>
-							<c:forEach var="botinfo" items="${botsinfo}">
-								<%
-									i++;
-								%>
+							<% int i = 0; %>
+							<c:forEach var="user" items="${users}">
+								<% i++; %>
 								<tr>
-									<td><%=i%></td>
-									<td>${botinfo.botname}</td>
-									<td><a href="chat?botID=${botinfo.id}">Chat</a></td>
-									<td><a href="train?botID=${botinfo.id}">Train</a></td>
-									<td><a href="dataFiles?botID=${botinfo.id}">AIML Files</a></td>
-
+									<td><%= i %></td>
+									<td>${user.username}</td>
+									<td>${user.status}</td>
+									<c:choose>
+										<c:when test="${user.enabled==true}">
+											<td><a href="user/disable?username=${user.username}">Disable</a></td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="user/enable?username=${user.username}">Enable </a> </td>
+										</c:otherwise>
+									</c:choose>
 									<td>
 										<div class="pull-right action-buttons">
-											
-											<a  href="delete?botID=${botinfo.id}" class="simpleConfirm trash"><span
-												class="glyphicon glyphicon-trash"></span></a> 
+										<a href="user/delete?username=${user.username}" class="simpleConfirm trash"><span class="glyphicon glyphicon-trash"></span></a>
 										</div>
 									</td>
 								</tr>
@@ -225,17 +216,16 @@
 					</table>
 				</div>
 			</div>
-
+			
 		</div>
 		<div class = "row">
 			<div class="col-md-6">
-				<a class="btn btn-info" href="new">Add new AIML bot</a>
+				<a class="btn btn-info" href="/AIML/admin/user/new">Add new user</a>
 			</div>
 		</div>
-		
-		
+		<!-- <a class="btn btn-info" href="new">Add new AIML bot</a> -->
 	</div>
-	  <script src="../resources/js/vendor/bootstrap.min.js"></script>
+   <script src="../resources/js/vendor/bootstrap.min.js"></script>
      <script src="../resources/js/vendor/run_prettify.js"></script> 
     <script>
     $(".simpleConfirm").confirm();

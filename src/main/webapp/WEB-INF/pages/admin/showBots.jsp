@@ -20,13 +20,10 @@
 <meta name="viewport" content="width=device-width">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <script src="../resources/js/vendor/jquery-1.9.1.min.js"></script>
-
-</script>
+<link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 <script type="text/javascript"
-	src="../resources/js/vendor/jquery.confirm.min.js">
+	src="../../resources/js/vendor/jquery-1.10.1.min.js">
+	
 </script>
 <style>
 /* body {
@@ -35,7 +32,7 @@
 }
  */
 .row {
-	/* margin-top: 40px; */
+	margin-top: 40px;
 	padding: 0 10px;
 }
 
@@ -143,29 +140,24 @@
 		});
 		$('[data-toggle="tooltip"]').tooltip();
 	})
-
-	
 </script>
-<%@ include file="../share/header.jsp"%>
+<%@ include file="../share/header.jsp" %>
 </head>
 
 
 <body>
-    
-
+	
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2 col-md-offset-5"></div>
+		    <div class="col-md-2 col-md-offset-5">
+		    	
+		    </div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-			<h4>
-				Click the filter icon <small>(<i
-					class="glyphicon glyphicon-filter"></i>)
-				</small> to filter by bot name
-			</h4>
-			</div>
-		</div>
+		<h4>
+			Click the filter icon <small>(<i
+				class="glyphicon glyphicon-filter"></i>)
+			</small> to filter by bot name
+		</h4>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
@@ -189,34 +181,28 @@
 								<th>#</th>
 								<th>Bot Name</th>
 								<!-- <th>Language</th> -->
-								<th>Action</th>
-								<th>Action</th>
-								<th>Action</th>
+								<th> Action </th>
+								<th> Action </th>
+								<th> Action </th>
 								<!-- <th> Action </th> -->
-
-
+								
+								
 							</tr>
 						</thead>
 						<tbody>
-							<%
-								int i = 0;
-							%>
-							<c:forEach var="botinfo" items="${botsinfo}">
-								<%
-									i++;
-								%>
+							<% int i = 0; %>
+							<c:forEach var="botinfo" items="${botsInfo}">
+								<% i++; %>
 								<tr>
-									<td><%=i%></td>
-									<td>${botinfo.botname}</td>
+									<td><%= i %></td>
+									<td>${botinfo.name}</td>
 									<td><a href="chat?botID=${botinfo.id}">Chat</a></td>
 									<td><a href="train?botID=${botinfo.id}">Train</a></td>
 									<td><a href="dataFiles?botID=${botinfo.id}">AIML Files</a></td>
-
+									
 									<td>
 										<div class="pull-right action-buttons">
-											
-											<a  href="delete?botID=${botinfo.id}" class="simpleConfirm trash"><span
-												class="glyphicon glyphicon-trash"></span></a> 
+										<a href="delete?botID=${botinfo.id}" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
 										</div>
 									</td>
 								</tr>
@@ -225,20 +211,8 @@
 					</table>
 				</div>
 			</div>
-
+			
 		</div>
-		<div class = "row">
-			<div class="col-md-6">
-				<a class="btn btn-info" href="new">Add new AIML bot</a>
-			</div>
-		</div>
-		
-		
 	</div>
-	  <script src="../resources/js/vendor/bootstrap.min.js"></script>
-     <script src="../resources/js/vendor/run_prettify.js"></script> 
-    <script>
-    $(".simpleConfirm").confirm();
-    </script>
 </body>
 </html>
