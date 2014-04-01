@@ -1,5 +1,8 @@
 package fti.aiml.web;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import fti.aiml.helper.AppConfig;
 import fti.aiml.model.UploadedFile;
+import fti.aiml.service.BotService;
 import fti.aiml.validator.FileValidator;
 
 
@@ -38,6 +43,7 @@ public class UploadController {
 	@RequestMapping("/fileUpload")
 	public ModelAndView fileUploaded(
 			@RequestParam("botID") String botID,
+			@RequestParam("type") String type,
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result) {
 		//Authenticate and authorization
@@ -53,26 +59,26 @@ public class UploadController {
 			return new ModelAndView("uploadForm");
 		}
 
-//		try {
-//			inputStream = file.getInputStream();
-//			
-//			File newFile = new File(AppConfig.BOTS_PATH  + userId + "/bots/" + botId + "/aiml/" + fileName);
-//			//File newFile = new File(Bots_Path  + userId + "\\bots\\" + botId + "\\aiml\\" + fileName);
-//			if (!newFile.exists()) {
-//				newFile.createNewFile();
-//			}
-//			outputStream = new FileOutputStream(newFile);
-//			int read = 0;
-//			byte[] bytes = new byte[1024];
-//
-//			while ((read = inputStream.read(bytes)) != -1) {
-//				outputStream.write(bytes, 0, read);
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
+		/*try {
+			inputStream = file.getInputStream();
+			
+			File newFile = new File(AppConfig.BOTS_PATH  +  + "/bots/" + botID + "/" + type"/" + fileName);
+			//File newFile = new File(Bots_Path  + userId + "\\bots\\" + botId + "\\aiml\\" + fileName);
+			if (!newFile.exists()) {
+				newFile.createNewFile();
+			}
+			outputStream = new FileOutputStream(newFile);
+			int read = 0;
+			byte[] bytes = new byte[1024];
+
+			while ((read = inputStream.read(bytes)) != -1) {
+				outputStream.write(bytes, 0, read);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
 		ModelAndView model = new ModelAndView("showFile");
 		model.addObject("botID",botID);
 		

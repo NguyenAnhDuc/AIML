@@ -210,7 +210,12 @@
 									<td>${botinfo.botname}</td>
 									<td><a href="chat?botID=${botinfo.id}">Chat</a></td>
 									<td><a href="train?botID=${botinfo.id}">Train</a></td>
-									<td><a href="dataFiles?botID=${botinfo.id}">AIML Files</a></td>
+									<td>
+										<a href="dataFiles?type=aiml&botID=${botinfo.id}">AIML</a>
+										/<a href="dataFiles?type=config&botID=${botinfo.id}">Config</a>
+										/<a href="dataFiles?type=maps&botID=${botinfo.id}">Maps</a>
+										/<a href="dataFiles?type=sets&botID=${botinfo.id}">Sets</a>
+									</td>
 
 									<td>
 										<div class="pull-right action-buttons">

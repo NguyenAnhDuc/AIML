@@ -62,10 +62,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/user/create",method = RequestMethod.POST)
-	public String Users(ModelMap model,@RequestParam("username") String username){
+	public String Users(ModelMap model,@RequestParam("username") String username, @RequestParam("password") String password){
 		UserAccount user = new UserAccount();
 		user.setUsername(username);
-		String password = "demo";
 		user.setPassword(encoder.encode(password));
 		user.addRole(userService.getRole("ROLE_USER"));
 		userService.create(user);

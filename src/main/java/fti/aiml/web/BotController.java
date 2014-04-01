@@ -166,14 +166,13 @@ public class BotController {
 		return BusinessHelper.processChat(bot,question);
 	}*/
 	
-
-	
 	@RequestMapping(value="/dataFiles", method = RequestMethod.GET)
-	public String botData(@RequestParam("botID") String botID, ModelMap model){
+	public String botData(@RequestParam("botID") String botID,@RequestParam("type") String type, ModelMap model){
 		System.out.println("DataFile Request!");
 		BotInfo botInfo = botService.getById(botID);
-		ArrayList<String> files = IOHelper.getFiles(botInfo);
+		ArrayList<String> files = IOHelper.getFiles(botInfo,type);
 		model.addAttribute("botID",botID);
+		model.addAttribute("type",type);
 		model.addAttribute("files", files);
 		return "bot/showFiles";
 	}
@@ -197,18 +196,20 @@ public class BotController {
 		return "bot/editFile";
 	}
 	
-	@RequestMapping(value="/deleteAIML", method = RequestMethod.GET)
+	@RequestMapping(value="/deleteFile", method = RequestMethod.GET)
 	public String deleteData(@RequestParam("botID") String botID,
+						  @RequestParam("type") String type,
 						  @RequestParam("filename") String filename,
 			  				ModelMap model) throws IOException{
 		System.out.println("Delete File Request!");
 		BotInfo botInfo = botService.getById(botID);
-		IOHelper.deleteAIMLFile(botInfo, filename);
-		ArrayList<String> files = IOHelper.getFiles(botInfo);
+		IOHelper.deleteFile(botInfo, filename,type);
+		ArrayList<String> files = IOHelper.getFiles(botInfo,type);
 		model.addAttribute("botID",botID);
+		model.addAttribute("type", type);
 		model.addAttribute("files", files);
-		return "bot/showFiles";
-		//return "redirect:/bot/dataFiles";
+		//return "bot/showFiles";
+		return "redirect:/bot/dataFiles";
 	}
 	
 	@RequestMapping(value="/saveFile", method = RequestMethod.POST)
@@ -229,7 +230,7 @@ public class BotController {
 		System.out.println("RESTART BOT!");
 		FunctionHelper.stopBot(botInfo);
 		FunctionHelper.startBot(botInfo);
-		ArrayList<String> files = IOHelper.getFiles(botInfo);
+		ArrayList<String> files = IOHelper.getFiles(botInfo,"aiml");
 		model.addAttribute("botID",botID);
 		model.addAttribute("files", files);
 		return "bot/showFiles";
@@ -239,10 +240,12 @@ public class BotController {
 	
 	@RequestMapping("/upload")
 	public ModelAndView getUploadForm(
+			@RequestParam("type") String type,
 			@RequestParam("botID") String botID,
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result) {
 		ModelAndView model = new  ModelAndView("uploadForm");
+		model.addObject("type",type);
 		model.addObject("botID", botID);
 		return model;
 		
@@ -251,6 +254,7 @@ public class BotController {
 	@RequestMapping("/fileUpload")
 	public ModelAndView fileUploaded(
 			@RequestParam("botID") String botID,
+			@RequestParam("type") String type,
 			@ModelAttribute("uploadedFile") UploadedFile uploadedFile,
 			BindingResult result) {
 
@@ -272,7 +276,7 @@ public class BotController {
 			inputStream = file.getInputStream();
 			
 			File newFile = new File(AppConfig.BOTS_PATH  + botInfo.getUserID() 
-									+ "/bots/" + botInfo.getBotname() + "/aiml/" + fileName);
+									+ "/bots/" + botInfo.getBotname() + "/" + type + "/" + fileName);
 			if (!newFile.exists()) {
 				newFile.createNewFile();
 			}
@@ -290,10 +294,17 @@ public class BotController {
 		
 		ModelAndView model = new ModelAndView("bot/showFiles");
 		String botPath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/";
-		Bot bot = new Bot(botInfo.getBotname(),botPath,"aiml2csv");
-		bot.writeAIMLIFFiles();
-		ArrayList<String> files = IOHelper.getFiles(botInfo);
+		if (type.equals("aiml")){
+			Bot bot = new Bot(botInfo.getBotname(),botPath,"aiml2csv");
+			bot.writeAIMLIFFiles();
+		}
+		else {
+			FunctionHelper.stopBot(botInfo);
+			FunctionHelper.startBot(botInfo);
+		}
+		ArrayList<String> files = IOHelper.getFiles(botInfo,type);
 		model.addObject("botID",botID);		
+		model.addObject("type",type);
 		model.addObject("files", files);
 		return model;
 	}
@@ -307,6 +318,7 @@ public class BotController {
 	@ResponseBody
 	public BasicDBObject createBot(@RequestParam("name") String name, 
 							@RequestParam("language") String language,
+							@RequestParam("option") String option,
 							ModelMap model, Principal principal){
 		System.out.println("CREATE BOT REQUEST!");
 		List<BotInfo> botsinfo = botService.getBotByUserID(principal.getName());
@@ -323,7 +335,12 @@ public class BotController {
 		botInfo.setLanguage(language);
 		botInfo.setUserID(principal.getName());
 		botService.create(botInfo);
-		IOHelper.createNewBotDirectory(botInfo);
+		if  (option.equals("default")){
+			IOHelper.createNewBotDirectory(botInfo);
+		}
+		else {
+			IOHelper.createEmptyBotDirectory(botInfo);
+		}
 		return result;
 	}
 	

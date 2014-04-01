@@ -50,8 +50,8 @@
 		<div class="row col-md-6 col-md-offset-2 custyle">
 			<table class="table table-striped custab">
 				<thead>
-					<a href="upload?botID=${botID}" class="btn btn-primary btn-xs pull-right"><b>+</b>
-						Upload AIML Files</a>
+					<a href="upload?type=${type}&botID=${botID}" class="btn btn-primary btn-xs pull-right"><b>+</b>
+						Upload ${type} Files</a>
 					<tr>
 						<th>#</th>
 						<th>Filename</th>
@@ -68,10 +68,15 @@
 					<tr>
 						<td><%=i%></td>
 						<td>${filename}</td>
-						<td class="text-center"><a class='btn btn-info btn-xs'
-							href="data/edit?filename=${filename}&botID=${botID}" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
-							<a href="deleteAIML?filename=${filename}&botID=${botID}" class="simpleConfirm btn btn-danger btn-xs"><span
-								class="glyphicon glyphicon-remove"></span> Del</a></td>
+						<td class="text-center">
+							<c:if test="${type=='aiml'}">
+								<a class='btn btn-info btn-xs'
+								href="data/edit?filename=${filename}&botID=${botID}" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+							</c:if>
+							<a href="deleteFile?type=${type}&filename=${filename}&botID=${botID}" class="simpleConfirm btn btn-danger btn-xs"><span
+							class="glyphicon glyphicon-remove"></span> Del</a></td>
+							
+							
 					</tr>
 				</c:forEach>
 

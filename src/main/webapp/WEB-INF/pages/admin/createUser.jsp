@@ -48,6 +48,9 @@
 				<div id="user-error-alert" class="alert alert-warning col-sm-12 hide">
 					user name is required!
 				</div>
+				<div id="password-error-alert" class="alert alert-warning col-sm-12 hide">
+					user name is required!
+				</div>
 				<div id="success-alert" class="alert alert-success col-sm-12 hide">
 					Create User Successfully!
 				</div>
@@ -56,6 +59,11 @@
 					<div class="col-sm-10">
 						<input id="username" type="text" class="form-control" id="inputUserName" name="name"
 							placeholder="User Name" required>
+					</div>
+					<label  class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-10">
+						<input id="password" type="password" class="form-control" id="inputPassword" name="password"
+							placeholder="Password" required>
 					</div>
 					
 				</div>
@@ -75,8 +83,13 @@
 	function createuser() {
 		//alert("searchtext");
 		var name = $('#username').val();
+		var password = $('#password').val();
 		if (!name) {
 			$('#user-error-alert').removeClass('hide');
+			return;
+		}
+		if (!password) {
+			$('#password-error-alert').removeClass('hide');
 			return;
 		}
 		
@@ -86,18 +99,19 @@
 			type : "POST",
 			url: "/AIML/admin/user/create",
 			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			data : "username=" + encodeURIComponent(name),
+			data : "username=" + encodeURIComponent(name) + "&password=" + encodeURIComponent(password),
 			success : function(result) {
 				if (result.status === "error"){
 					$('#error-alert').removeClass('hide');
 					$('#success-alert').addClass('hide');
 					$('#user-error-alert').addClass('hide');
-					
+					$('#password-error-alert').addClass('hide');
 				}
 				else {
 					$('#success-alert').removeClass('hide');
 					$('#error-alert').addClass('hide');
 					$('#user-error-alert').addClass('hide');
+					$('#password-error-alert').addClass('hide');
 				}
 			},
 			error : function(result) {

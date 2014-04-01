@@ -33,6 +33,7 @@ public class DataInitializer {
 	
 	@PostConstruct
 	public void init() {
+		logger.debug("Data Initialize");
 		String demoPasswordEncoded = encoder.encode("demo");
 		logger.debug("initializing data, demo password encoded: {}", demoPasswordEncoded);
 		

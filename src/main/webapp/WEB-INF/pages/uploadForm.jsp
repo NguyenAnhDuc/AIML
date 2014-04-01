@@ -40,10 +40,11 @@
 				<form:form enctype="multipart/form-data"
 					modelAttribute="uploadedFile" action="fileUpload">
 					<input type="hidden" name="botID" value="${botID}">
+					<input type="hidden" name="type" id="fileType" value="${type}">
 
 					<div class="form-group">
 						<label for="exampleInputFile">File input</label> <input
-							type="file" id="exampleInputFile" name="file">
+							type="file" id="exampleInputFile" name="file" mutiple>
 					</div>
 					
 					<button type="submit" class="btn btn-default hide" id="submitBtn"></button>
@@ -63,7 +64,7 @@
 </body>
 <script>
 	function Submit(){
-		if ($("#exampleInputFile").val().toString().indexOf(".aiml") != -1){
+		if ($("#fileType").val() != "aiml" ||  $("#exampleInputFile").val().toString().indexOf(".aiml") != -1){
 			$("#submitBtn").click();
 		}
 		else{

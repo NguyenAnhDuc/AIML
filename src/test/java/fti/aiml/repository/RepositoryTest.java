@@ -66,6 +66,7 @@ public class RepositoryTest extends AbstractMongoTest {
 		assertThat(user, is(user));
 	}
 	
+	
 	@Test
 	public void userRoles() throws Exception {
 		UserAccount user = userRepository.findByUsername("jdoe");
