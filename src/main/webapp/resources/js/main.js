@@ -15,104 +15,13 @@
   $("#tokenRow").hide();
   var requestType = "";
   
-	/*$( "#userAuthenticateBtn" ).click(function() {
-	  $("#usernameRow").show();
-	  $("#passwordRow").show();
-	  $("#botIdRow").hide();
-	  $("#dataRow").hide();
-	  $("#dataFileRow").hide();
-	  $("#methodType").text("POST");
-	  $("#apiName").text("USER/AUTHENTICATE");
-	  requestType = "userAuthenticate";
-	  $("#txtUsername").val("");
-	  $("#txtPassword").val("");
-	  $("#txtbotId").val("nodata");
-	  $("#txtData").val("nodata");
-	  $("#txtResult").val('');
-	  $("#txtPassword").attr("type","password");	  
-	});
-	
-	$( "#userRegisterBtn" ).click(function() {
-		  $("#usernameRow").show();
-		  $("#passwordRow").show();
-		  $("#botIdRow").hide();
-		  $("#dataRow").hide();
-		  $("#dataFileRow").hide();
-		  $("#methodType").text("POST");
-		  $("#apiName").text("USER/REGISTER");
-		  requestType = "userRegister";
-		  $("#txtResult").val('');
-		  $("#txtUsername").val("");
-		  $("#txtPassword").val("");
-		  $("#txtbotId").val("nodata");
-		  $("#txtData").val("nodata");
-		  $("#txtResult").val('');
-		  $("#txtPassword").attr("type","password");
-		});
-	
-	$( "#userActiveBtn" ).click(function() {
-		  $("#usernameRow").show();
-		  $("#passwordRow").show();
-		  $("#botIdRow").hide();
-		  $("#dataRow").hide();
-		  $("#dataFileRow").hide();
-		  $("#methodType").text("POST");
-		  $("#apiName").text("USER/ACTIVE");
-		  requestType = "userActive";
-		  $("#txtResult").val('');
-		  $("#txtUsername").val("");
-		  $("#txtPassword").val("");
-		  $("#txtbotId").val("nodata");
-		  $("#txtData").val("nodata");
-		  $("#txtResult").val('');
-		  $("#txtPassword").attr("type","password");
-		});
-	
-	$( "#botIdDataPut" ).click(function() {
-		  $("#usernameRow").hide();
-		  $("#passwordRow").hide();
-		  $("#botIdRow").show();
-		  $("#dataRow").hide();
-		  $("#dataFileRow").show();
-		  $("#methodType").text("POST");
-		  $("#apiName").text("bot/ID/PUT");
-		  requestType = "botIdDataPut";
-		  $("#txtUsername").val("nodata");
-		  $("#txtPassword").val("nodata");
-		  $("#txtbotId").val("");
-		  $("#txtData").val("nodata");
-		  $("#txtResult").val('');
-		  $("#txtPassword").attr("type","text");
-		  $("#apiForm").attr("method","POST");
-		  $("#apiForm").attr("action","/AbChat/Upload"); 
-		  $("#apiForm").attr("enctype","multipart/form-data"); 
-		  
-		  
-	});
 	
 	
-	$( "#botIdDataGet" ).click(function() {
-		$("#usernameRow").hide();
-		  $("#passwordRow").hide();
-		  $("#botIdRow").show();
-		  $("#dataRow").hide();
-		  $("#dataFileRow").show();
-		  $("#methodType").text("POST");
-		  $("#apiName").text("bot/ID/PUT");
-		  requestType = "botIdDataPut";
-		  $("#txtUsername").val("nodata");
-		  $("#txtPassword").val("nodata");
-		  $("#txtbotId").val("");
-		  $("#txtData").val("");
-		  $("#txtResult").val('');
-		  $("#txtPassword").attr("type","text");
-		  
-	});*/
+	
   
      
     $( "#btnGetToken" ).click(function() {
-      $("#usernameRow").show();
-	  $("#passwordRow").show();
+      $("#usernameRow").hide();
 	  $("#tokenRow").hide();
 	  $("#botIdRow").hide();
 	  $("#dataRow").hide();
@@ -120,8 +29,6 @@
 	  $("#apiName").text("GET ACCESS TOKEN");
 	  $("#myForm").attr("method","GET");
 	  requestType = "getToken";
-	  $("#txtUserId").val('');
-	  $("#txtPassword").val('');
 	  $("#txtResult").val('');
 	  $("#txtData").val('');
 	});
@@ -144,7 +51,6 @@
 	
 	$( "#botId" ).click(function() {
 		  $("#usernameRow").show();
-		  $("#passwordRow").hide();
 		  $("#botIdRow").show();
 		  $("#tokenRow").show();
 		  $("#dataRow").hide();
@@ -159,27 +65,10 @@
 		  $("#txtPassword").attr("type","text");
 	});
 	
-	$( "#createBot" ).click(function() {
-		  $("#usernameRow").show();
-		  $("#passwordRow").hide();
-		  $("#botIdRow").show();
-		  $("#tokenRow").show();
-		  $("#methodType").text("GET");
-		  $("#apiName").text("CREATE BOT");
-		  $("#myForm").attr("method","GET");
-		  requestType = "createBot";
-		  $("#txtResult").val('');
-		  $("#txtUserId").val("");		  
-		  $("#txtbotId").val("");
-		  $("#txtPassword").attr("type","text");
-	});
-	
-
 	
 	$( "#chatResponse" ).click(function() {
-		$("#usernameRow").hide();
-		  $("#passwordRow").hide();
-		  $("#tokenRow").hide();
+		$("#usernameRow").show();
+		  $("#tokenRow").show();
 		  $("#botIdRow").show();
 		  $("#dataRow").show();
 		  $("#txtResult").val('');	 
@@ -188,20 +77,16 @@
 		  $("#myForm").attr("method","POST");
 		  requestType = "chatResponse";
 		  $("#txtResult").val('');
-		  $("#txtUserId").val("nodata");
-		  $("#txtPassword").val("nodata");
-		  $('#txtToken').val('nodata');
+		  $("#txtUserId").val("");
+		  $('#txtToken').val('');
 		  $("#txtData").val("");
-		  $("#txtPassword").attr("type","text");
 	});
-	
 	
 	 $("#submitbtn").click(function() {
 		
 	    //var url = "http://localhost:8080/AIML/"; // the script where you handle the form input.
-	    var url = "http://10.1.12.79:8080/AIML/";
+	    var url = "/AIML/API/";
 	    var username=$("#txtUsername").val();
-	    var password=$("#txtPassword").val();
 	    var botId=$("#txtbotId").val();
 	    var datajson=$("#txtData").val();
 	    var userId = $("#txtUserId").val();
@@ -212,45 +97,12 @@
 	    switch(requestType)
 	    {
 	    case 'getToken':
-	    	  if (username === '' || password === ''){
-		    	  $("#submitFormBtn").click();  
-		    	  isValid = false;
-		    	  break;	      	  
-		      }
-	    	  url += "API/getToken" + "?userID=" + userId + "&password=" + password;
+	    	  url += "getToken" ;
 	    	  methodType = "GET";
 	    	  break;
 	    	  
-	    case 'userAuthenticate':
-	    	  if (username === '' || password === ''){
-		    	  $("#submitFormBtn").click();  
-		    	  isValid = false;
-		    	  break;	      	  
-		      }
-	    	  url += "UserAuthenticate";
-		      methodType = "POST";
-	    	  data = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
-		      break;
-	    case 'userRegister':
-	    	  if (username === '' || password === ''){
-		    	  $("#submitFormBtn").click();  
-		    	  isValid = false;
-		    	  break;	      	  
-		      }
-	    	  url += "UserRegister";
-	    	  methodType = "POST";
-	    	  data = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
-		      break;
-
-	    case 'userActive':
-	    	  if (username === '' || password === ''){
-		    	  $("#submitFormBtn").click();  
-		    	  isValid = false;
-		    	  break;	      	  
-		      }
-	    	  url += "UserActive";
-	    	  data = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
-	    	  break;
+	    
+	   
 	    case 'chatResponse':
 	    	  if (botId === '' || datajson === ''){
 		    	  $("#submitFormBtn").click();  
@@ -258,23 +110,19 @@
 		    	  break;	      	  
 		      }
 	    	  //data = "botId=" + botId +  '&data='+ JSON.stringify(eval("(" + datajson + ")"));
-	    	  data = "botID=" + botId +  '&data='+ datajson;
-		      url += "API/chatapi";
+	    	  data = "botID=" + botId + "&userID=" + userId + "&token=" + accessToken + '&data='+ datajson;
+		      url += "chatapi";
 	    	  methodType = "POST";
 		      break;
 	    case 'bots':
 		      methodType = "GET";
-		      url += "API/bots" + "?userID=" + userId  + "&token=" + accessToken;
+		      url += "bots" + "?userID=" + userId  + "&token=" + accessToken;
 		      break;
 	    case 'botId':
-	    	  url += "API/bot" + "?userID=" + userId  + "&botID=" + botId + "&token=" + accessToken;
+	    	  url += "bot" + "&userID=" + userId  + "&botID=" + botId + "&token=" + accessToken;
 		      methodType = "GET";
 		      break;
-	    case 'createBot':
-	    	  url += "user/newBot" + userId + "?botId=" + botId + "&token=" + accessToken;
-	    	  methodType = "GET";
-	          break;
-	          
+	  
 	    case 'dataFile':
 	    	 
 	    	 $("#submitFormBtn").click(); 

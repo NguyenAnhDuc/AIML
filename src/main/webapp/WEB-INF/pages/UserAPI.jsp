@@ -120,21 +120,10 @@
                                       User name
                                     </td>
                                     <td>
-                                      <input id="txtUserId" name="userId" type="text" class="form-control" required="required">
+                                      <input id="txtUserId" name="userId" type="text" class="form-control" >
                                     </td>
                                   </tr>
-                                  <tr id="passwordRow">
-                                    <td>
-                                      password
-                                    </td>
-                                    <td>
-                                      Password
-                                    </td>
-                                    <td>
-                                      <input id="txtPassword" name="password" type="password" class="form-control"
-                                      required="required">
-                                    </td>
-                                  </tr>
+                                  
                                   <tr id="botIdRow">
                                     <td>
                                       botid

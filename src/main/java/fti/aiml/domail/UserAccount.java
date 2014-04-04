@@ -26,6 +26,7 @@ public class UserAccount {
 	private String lastname;
 	private String status;
 	private Boolean enabled;
+	private String token;
 	
 	@DBRef
 	private List<Role> roles = new ArrayList<Role>();
@@ -92,6 +93,14 @@ public class UserAccount {
 
 	public void addRole(Role role) {
 		this.roles.add(role);
+	}
+	
+	public String getToken(){
+		return this.token;
+	}
+	
+	public void setToken(String token){
+		this.token = token;
 	}
 	
 	public void removeRole(Role role) {

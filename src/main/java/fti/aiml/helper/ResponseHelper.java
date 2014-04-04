@@ -125,7 +125,7 @@ public class ResponseHelper {
 	public static String getErrorMessage(int errorCode){
         String errorMessage="";
         switch (errorCode){
-        	case 401: errorMessage = "Authenticate failled";
+        	case 401: errorMessage = "Username or token is not valid";
 		     	break;
         	case 402: errorMessage = "Authorization failled";
 	     	break;

@@ -1,5 +1,7 @@
 package fti.aiml.service;
 
+import java.util.UUID;
+
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -36,7 +38,6 @@ public class DataInitializer {
 		logger.debug("Data Initialize");
 		String demoPasswordEncoded = encoder.encode("demo");
 		logger.debug("initializing data, demo password encoded: {}", demoPasswordEncoded);
-		
 		//clear all collections, but leave indexes intact
 		dbService.cleanUp();
 		
@@ -50,6 +51,7 @@ public class DataInitializer {
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_USER"));
 		user.setUsername("fti");		
+		user.setToken(UUID.randomUUID().toString());
 		userService.create(user);
 		//simulate account activation
 		user.setEnabled(true);
@@ -62,22 +64,13 @@ public class DataInitializer {
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_ADMIN"));
 		user.setUsername("admin");	
+		user.setToken(UUID.randomUUID().toString());
 		userService.create(user);
 		user.setEnabled(true);
 		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
 		userService.save(user);
 		
-		user = new UserAccount();
-		user.setFirstname("Ted");
-		user.setLastname("Doe");
-		user.setPassword(encoder.encode("demo"));
-		user.addRole(userService.getRole("ROLE_USER"));
-		user.addRole(userService.getRole("ROLE_ADMIN"));
-		user.setUsername("ted");	
-		userService.create(user);
-		user.setEnabled(true);
-		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
-		userService.save(user);
+		
 		
 		BotInfo bot = new BotInfo();
 		bot.setBotname("test");
