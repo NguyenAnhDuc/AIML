@@ -46,9 +46,7 @@ public class AuthenticationTest extends AbstractMongoTest {
 		assertThat(localAuthenticationProvider, is(notNullValue()));
 		assertThat(encoder, is(notNullValue()));
 		assertThat(encoder.matches("test", super.testPasswordEncoded), is(true));
-
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("jdoe", "test");
-
         UserDetails user = localAuthenticationProvider.retrieveUser("jdoe", token);
         assertThat(user, is(notNullValue()));
         assertThat(user.getAuthorities().size(), is(2));

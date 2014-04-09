@@ -1,6 +1,7 @@
 package fti.aiml.web;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,9 +11,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import fti.aiml.UserAccountStatus;
+import fti.aiml.domail.BotInfo;
 import fti.aiml.domail.UserAccount;
+import fti.aiml.helper.FunctionHelper;
+import fti.aiml.helper.IOHelper;
 import fti.aiml.service.BotService;
 import fti.aiml.service.UserService;
 
@@ -67,6 +72,8 @@ public class AdminController {
 		user.setUsername(username);
 		user.setPassword(encoder.encode(password));
 		user.addRole(userService.getRole("ROLE_USER"));
+		//user.setToken("token");
+		user.setToken(UUID.randomUUID().toString());
 		userService.create(user);
 		user.setEnabled(true);
 		user.setStatus(UserAccountStatus.STATUS_APPROVED.name());		
@@ -74,6 +81,50 @@ public class AdminController {
 		List<UserAccount> users = userService.allUsers();
 		model.addAttribute("users", users);
 		return "redirect:/admin/users";
+	}
+	
+	@RequestMapping(value="/create3000user",method = RequestMethod.GET)
+	@ResponseBody
+	public String create3000user(){
+		for (int i=1;i<=3000;i++){
+			String username = "user" + i;
+			String password = "password" + i;
+			String token = "i";
+			UserAccount user = new UserAccount();
+			user.setUsername(username);
+			user.setPassword(encoder.encode(password));
+			user.setToken(token);
+			user.setEnabled(true);
+			user.setStatus(UserAccountStatus.STATUS_APPROVED.name());		
+			userService.create(user);
+			System.out.println("Create user " + i + "..............");
+		}
+		return "success";
+	}
+	
+	@RequestMapping(value="/create3000bot",method = RequestMethod.GET)
+	@ResponseBody
+	public String create3000bot(){
+		for (int i=1;i<=3000;i++){
+			BotInfo botInfo = new BotInfo();
+			botInfo.setBotname("bot" + i);
+			botInfo.setLanguage("EN");
+			botInfo.setUserID("user"+i);
+			botService.create(botInfo);
+			//IOHelper.createNewBotDirectory(botInfo);
+			System.out.println("Create bot " + i + "..............");
+		}
+		return "success";
+	}
+	
+	@RequestMapping(value="/start3000bot",method = RequestMethod.GET)
+	@ResponseBody
+	public String start3000bot(){
+		for (int i=1;i<=3000;i++){
+			BotInfo botInfo = botService.getByBotname("bot"+i);
+			FunctionHelper.startBot(botInfo);
+		}
+		return "success";
 	}
 	
 	@RequestMapping(value = "/user/new",method = RequestMethod.GET)

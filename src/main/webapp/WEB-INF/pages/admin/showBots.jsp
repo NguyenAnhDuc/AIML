@@ -159,7 +159,7 @@
 			</small> to filter by bot name
 		</h4>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Bots</h3>

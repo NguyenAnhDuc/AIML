@@ -1,8 +1,15 @@
 package fti.aiml.web;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +32,20 @@ import fti.aiml.service.UserService;
 @Controller
 @RequestMapping("/API")
 public class APIController {
-
+	private static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static FileHandler fileHandler;
+	private static Formatter formatterTxt; 
 	@Autowired private UserService userService;
 	@Autowired private BotService botService;
 	/*@Autowired
 	private  UserService userService;*/
+	
+	@PostConstruct
+	public void setUp() throws Exception, IOException{
+		fileHandler = new FileHandler("API_Logging.txt");
+		formatterTxt = new SimpleFormatter();
+		LOGGER.addHandler(fileHandler);
+	}
 	
 	//TEST
 	@RequestMapping(value="/test123", method = RequestMethod.GET)
@@ -47,6 +63,7 @@ public class APIController {
 	@RequestMapping(value="/getToken", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public BasicDBObject getToken( Principal principal){
+		LOGGER.info("GET TOKEN REQUEST");
 		UserAccount user = userService.getByUsername(principal.getName());
 		String token = user.getToken();
 		BasicDBObject jsonResult = new BasicDBObject();
@@ -60,6 +77,7 @@ public class APIController {
 	@RequestMapping(value="/bots", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public BasicDBObject UserBots(@RequestParam("userID") String username,@RequestParam("token") String token){
+		LOGGER.info("BOTS REQUEST: " + "userID: " + username + " | token: " + token);
 		BasicDBObject jsonResult = new BasicDBObject();
 		try{
 			UserAccount user = userService.getByUsername(username);
