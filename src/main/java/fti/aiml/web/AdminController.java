@@ -27,6 +27,7 @@ public class AdminController {
 	@Autowired private UserService userService;
 	@Autowired private BotService botService;
 	@Autowired private PasswordEncoder encoder; 
+	public static final int maxUser = 100;
 	
 	@RequestMapping(value = "/users",method = RequestMethod.GET)
 	public String Users(ModelMap model){
@@ -86,7 +87,7 @@ public class AdminController {
 	@RequestMapping(value="/create3000user",method = RequestMethod.GET)
 	@ResponseBody
 	public String create3000user(){
-		for (int i=1;i<=3000;i++){
+		for (int i=1;i<=maxUser;i++){
 			String username = "user" + i;
 			String password = "password" + i;
 			String token = "i";
@@ -94,33 +95,34 @@ public class AdminController {
 			user.setUsername(username);
 			user.setPassword(encoder.encode(password));
 			user.setToken(token);
-			user.setEnabled(true);
-			user.setStatus(UserAccountStatus.STATUS_APPROVED.name());		
 			userService.create(user);
+			user.setEnabled(true);
+			user.setStatus(UserAccountStatus.STATUS_APPROVED.name());
+			userService.save(user);
 			System.out.println("Create user " + i + "..............");
 		}
 		return "success";
 	}
 	
-	@RequestMapping(value="/create3000bot",method = RequestMethod.GET)
+	@RequestMapping(value="/createMaxBot",method = RequestMethod.GET)
 	@ResponseBody
 	public String create3000bot(){
-		for (int i=1;i<=3000;i++){
+		for (int i=1;i<=maxUser;i++){
 			BotInfo botInfo = new BotInfo();
 			botInfo.setBotname("bot" + i);
 			botInfo.setLanguage("EN");
 			botInfo.setUserID("user"+i);
 			botService.create(botInfo);
-			//IOHelper.createNewBotDirectory(botInfo);
+			IOHelper.createNewBotDirectory(botInfo);
 			System.out.println("Create bot " + i + "..............");
 		}
 		return "success";
 	}
 	
-	@RequestMapping(value="/start3000bot",method = RequestMethod.GET)
+	@RequestMapping(value="/startMaxBot",method = RequestMethod.GET)
 	@ResponseBody
-	public String start3000bot(){
-		for (int i=1;i<=3000;i++){
+	public String start3000bot(@RequestParam("maxbot") int maxbot){
+		for (int i=1;i<=maxbot;i++){
 			BotInfo botInfo = botService.getByBotname("bot"+i);
 			FunctionHelper.startBot(botInfo);
 		}
@@ -130,6 +132,29 @@ public class AdminController {
 	@RequestMapping(value = "/user/new",method = RequestMethod.GET)
 	public String newUser(ModelMap model){
 		return "admin/createUser";
+	}
+	
+	@RequestMapping(value = "/getNumberOfRunningBot",method = RequestMethod.GET)
+	@ResponseBody
+	public String getNumberOfRunningBot(){
+		int  count = FunctionHelper.RunningBots.size();
+		return "success " + count + "bot have started!";
+	}
+	
+	@RequestMapping(value = "/startNumberBot",method = RequestMethod.GET)
+	@ResponseBody
+	public String startNumberBot(@RequestParam("maxbot") int maxbot){
+		int  count = 0;
+		for (int i=1;i<=maxUser;i++){
+			BotInfo botInfo = botService.getByBotname("bot"+i);
+			if (!FunctionHelper.isRunning(botInfo)){
+				count ++ ;
+				FunctionHelper.startBot(botInfo);
+				//FunctionHelper.stopBot(botInfo);
+				if (count >= maxbot) break;
+			}
+		}
+		return  "" + count;
 	}
 
 	

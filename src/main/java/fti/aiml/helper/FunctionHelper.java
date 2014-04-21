@@ -77,7 +77,15 @@ public class FunctionHelper {
 		}
 		return chatapis;
 	}
-
+	
+	public static boolean isRunning(BotInfo botInfo){
+		for (RunningBot runningbot : RunningBots){
+			if (runningbot.getBotInfo().equals(botInfo))
+				return true;
+		}
+		return false;
+	}
+	
 	public static RunningBot startBot(BotInfo botInfo){
 		for (RunningBot runningbot : RunningBots){
 			if (runningbot.getBotInfo().equals(botInfo))

@@ -101,8 +101,6 @@
 	    	  methodType = "GET";
 	    	  break;
 	    	  
-	    
-	   
 	    case 'chatResponse':
 	    	  if (botId === '' || datajson === ''){
 		    	  $("#submitFormBtn").click();  
@@ -119,7 +117,7 @@
 		      url += "bots" + "?userID=" + userId  + "&token=" + accessToken;
 		      break;
 	    case 'botId':
-	    	  url += "bot" + "&userID=" + userId  + "&botID=" + botId + "&token=" + accessToken;
+	    	  url += "botdetail" + "?userID=" + userId  + "&botID=" + botId + "&token=" + accessToken;
 		      methodType = "GET";
 		      break;
 	  

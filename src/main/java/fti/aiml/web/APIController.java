@@ -95,9 +95,10 @@ public class APIController {
 	}
 	
 	//BOT: SHOW A BOT DETAIL
-	@RequestMapping(value="/bot", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value="/botdetail", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public BasicDBObject UserBot(@RequestParam("userID") String username,@RequestParam("botID") String botID,@RequestParam("token") String token){
+		LOGGER.info("BOT REQUEST: " + "userID: " + username + " | botID: " + botID + " | token: " + token);
 		BasicDBObject jsonResult = new BasicDBObject();
 		try{
 			UserAccount user = userService.getByUsername(username);

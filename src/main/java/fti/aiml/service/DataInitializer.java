@@ -35,7 +35,7 @@ public class DataInitializer {
 	
 	@PostConstruct
 	public void init() {
-		/*logger.debug("Data Initialize");
+		logger.debug("Data Initialize");
 		String demoPasswordEncoded = encoder.encode("demo");
 		logger.debug("initializing data, demo password encoded: {}", demoPasswordEncoded);
 		//clear all collections, but leave indexes intact
@@ -76,6 +76,6 @@ public class DataInitializer {
 		bot.setBotname("test");
 		bot.setLanguage("EN");
 		bot.setUserID("fti");
-		botService.create(bot);*/
+		botService.create(bot);
 	}
 }
