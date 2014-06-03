@@ -16,7 +16,7 @@
 <!-- Built with Divshot - http://www.divshot.com -->
 
 <head>
-<title>Chat test</title>
+<title>Chat</title>
 <meta name="viewport" content="width=device-width">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -65,7 +65,7 @@
 		<div class="row">
 		    <div class="col-md-2 col-md-offset-5">
 		    	<h2>
-				CHAT TEST
+				CHAT
 				</h2>
 		    </div>
 		</div>
@@ -93,5 +93,6 @@
 
 		</div>
 	</div>
+	<%@ include file="../share/footer.jsp" %>
 </body>
 </html>

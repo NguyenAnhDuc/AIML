@@ -44,7 +44,7 @@
 
 					<div class="form-group">
 						<label for="exampleInputFile">File input</label> <input
-							type="file" id="exampleInputFile" name="file" mutiple>
+							type="file" id="exampleInputFile" name="file" multiple="multiple">
 					</div>
 					
 					<button type="submit" class="btn btn-default hide" id="submitBtn"></button>

@@ -19,33 +19,23 @@
 <meta name="viewport" content="width=device-width">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 
 </head>
+
 <body>
-    <jsp:include page="../share/header.jsp" />
+
+    <jsp:include page="../share/AdminHeader.jsp" />
+
 	<div class="container">
-	    
-		<form role="form" method="post" action="/AIML/bot/saveFile" accept-charset="UTF-8" >
 			<div class="form-group">
-				<h3>${botName} => ${filename} </h3>
-				<input type="hidden" name="botID" value="${botID}">
-				<input type="hidden" name="filename" value="${filename}">
-				<input type="hidden" name="type" value="${type}">
 				<textarea rows="20" type="text" class="form-control"
-					name="content">
+					name="content" readonly>
     	${content}
     </textarea>
     
 			</div>
-			<div class="row">
-				<div class="col-md-2 col-md-offset-5">
-					<button type="submit" class="btn btn-success">Submit</button>
-				</div>
-			</div>
 
-		</form>
 	</div>
-	<jsp:include page="../share/footer.jsp" />
 </body>
 </html>

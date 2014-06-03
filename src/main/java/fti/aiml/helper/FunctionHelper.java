@@ -91,9 +91,9 @@ public class FunctionHelper {
 			if (runningbot.getBotInfo().equals(botInfo))
 				return runningbot;
 		}
-		System.out.println("Start bot " + botInfo.getBotname());
+		System.out.println("Start bot " + botInfo.getId());
 		String action = "chat";
-		Bot newbot = new Bot(botInfo.getBotname(),AppConfig.BOTS_PATH + botInfo.getUserID(),action);
+		Bot newbot = new Bot(botInfo.getId(),AppConfig.BOTS_PATH + botInfo.getUserID(),action);
 		
 		RunningBot newRunningBot = new RunningBot(botInfo, newbot);
 		RunningBots.add(newRunningBot);
@@ -103,7 +103,7 @@ public class FunctionHelper {
 
 	public static void stopBot(BotInfo botInfo){
 		for (RunningBot bot : RunningBots){
-			if (bot.getBotInfo().getBotname().equals(botInfo.getBotname())){
+			if (bot.getBotInfo().getId().equals(botInfo.getId())){
 				RunningBots.remove(bot);
 				System.out.println("Remove bot " + bot.getBot().name);
 				break;

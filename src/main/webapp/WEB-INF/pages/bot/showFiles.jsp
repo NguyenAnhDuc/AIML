@@ -25,9 +25,9 @@
 <script src="../resources/js/vendor/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="../resources/js/vendor/jquery.confirm.min.js">
-</script>    
+	
+</script>
 <style>
-
 .custab {
 	border: 1px solid #ccc;
 	padding: 5px;
@@ -50,8 +50,9 @@
 		<div class="row col-md-6 col-md-offset-2 custyle">
 			<table class="table table-striped custab">
 				<thead>
-					<a href="upload?type=${type}&botID=${botID}" class="btn btn-primary btn-xs pull-right"><b>+</b>
-						Upload ${type} Files</a>
+					<a href="upload?type=${type}&botID=${botID}"
+						class="btn btn-primary btn-xs pull-right"><b>+</b> Upload
+						${type} Files</a>
 					<tr>
 						<th>#</th>
 						<th>Filename</th>
@@ -68,25 +69,25 @@
 					<tr>
 						<td><%=i%></td>
 						<td>${filename}</td>
-						<td class="text-center">
-							<c:if test="${type=='aiml'}">
-								<a class='btn btn-info btn-xs'
-								href="data/edit?filename=${filename}&botID=${botID}" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
-							</c:if>
-							<a href="deleteFile?type=${type}&filename=${filename}&botID=${botID}" class="simpleConfirm btn btn-danger btn-xs"><span
-							class="glyphicon glyphicon-remove"></span> Del</a></td>
-							
-							
+						<td class="text-center"><a class='btn btn-info btn-xs'
+							href="data/edit?filename=${filename}&type=${type}&botID=${botID}"><span
+								class="glyphicon glyphicon-edit"></span> Edit</a> <a
+							href="deleteFile?type=${type}&filename=${filename}&botID=${botID}"
+							class="simpleConfirm btn btn-danger btn-xs"><span
+								class="glyphicon glyphicon-remove"></span> Del</a></td>
+
+
 					</tr>
 				</c:forEach>
 
 			</table>
 		</div>
 	</div>
- <script src="../resources/js/vendor/bootstrap.min.js"></script>
-     <script src="../resources/js/vendor/run_prettify.js"></script> 
-    <script>
-    $(".simpleConfirm").confirm();
-    </script>
+	<script src="../resources/js/vendor/bootstrap.min.js"></script>
+	<script src="../resources/js/vendor/run_prettify.js"></script>
+	<script>
+		$(".simpleConfirm").confirm();
+	</script>
+	<jsp:include page="../share/footer.jsp" />
 </body>
 </html>

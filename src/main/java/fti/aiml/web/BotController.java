@@ -1,21 +1,24 @@
 package fti.aiml.web;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import javax.annotation.PostConstruct;
 
 import org.alicebot.ab.Bot;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +35,6 @@ import fti.aiml.helper.AppConfig;
 import fti.aiml.helper.FunctionHelper;
 import fti.aiml.helper.IOHelper;
 import fti.aiml.helper.ResponseHelper;
-import fti.aiml.model.UploadedFile;
 import fti.aiml.service.BotService;
 import fti.aiml.validator.FileValidator;
 
@@ -45,7 +47,17 @@ public class BotController {
 	private BotService botService;
 	@Autowired
 	FileValidator fileValidator;
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static FileHandler fileTxt;
+	private static SimpleFormatter formatterTxt;
 	
+	@PostConstruct
+	public void init() throws SecurityException, IOException{
+		fileTxt = new FileHandler(AppConfig.LOG_FILE);
+		formatterTxt = new SimpleFormatter();
+		fileTxt.setFormatter(formatterTxt);
+		LOGGER.addHandler(fileTxt);
+	}
 	
 	@RequestMapping(value="/show", method = RequestMethod.GET)
 	public String show(ModelMap model, Principal principal ) {
@@ -78,8 +90,10 @@ public class BotController {
 	@RequestMapping(value="/train", method = RequestMethod.GET)
 	public String train(@RequestParam("botID") String botID , ModelMap model) {
 		model.addAttribute("botID", botID);
+		String botName = botService.getById(botID).getBotname();
+		model.addAttribute("botName", botName);
 		model.addAttribute("message", "Training Page");
-		return "bot/Training";
+		return "bot/Train";
  	}
 	
 	
@@ -95,8 +109,10 @@ public class BotController {
 			List<BotInfo> botsInfo = botService.getBotByUserID(botInfo.getUserID());
 			FunctionHelper.stopBots(botsInfo);
 			RunningBot bot = FunctionHelper.startBot(botInfo);
-			
+			LOGGER.info("BotID: " + botID);
+			LOGGER.info("Question: " + question);
 			String answer = FunctionHelper.getAnswer(bot.getBot(), question);
+			LOGGER.info("Answer: " + answer);
 			return ResponseHelper.successChat(botInfo.getBotname(),question,answer);
 		}
 		catch (Exception ex){
@@ -113,7 +129,6 @@ public class BotController {
 			List<BotInfo> botsInfo = botService.getBotByUserID(botInfo.getUserID());
 			FunctionHelper.stopBots(botsInfo);
 			RunningBot bot = FunctionHelper.startBot(botInfo);
-		
 			System.out.println("Start bot! DONE!");
 			BotResponseInfo response = FunctionHelper.getResponse(bot.getBot(), question);
 			return ResponseHelper.successChatTrain(question,response);
@@ -133,7 +148,11 @@ public class BotController {
 			// update template in AIML file
 			BotInfo botInfo = botService.getById(botID);
 			FunctionHelper.trainBot(botInfo,question,newAnswer);
-		    return ResponseHelper.success();
+			LOGGER.info("BotID: " + botID);
+			LOGGER.info("Question: " + question);
+			LOGGER.info("New Answer(Train): " + newAnswer);
+			
+			return ResponseHelper.success();
 		}
 		catch (Exception ex){
 			return ResponseHelper.buildFailResponse(999);
@@ -179,17 +198,19 @@ public class BotController {
 	
 	@RequestMapping(value="/data/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam("botID") String botID,
+						@RequestParam("type") String type,
 						  @RequestParam("filename") String filename,
 			  				ModelMap model) throws IOException{
 		System.out.println("Edit Request!");
 		BotInfo botInfo = botService.getById(botID);
-		String filePath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getBotname()
-						  + "/aiml/" + filename;
+		String filePath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getId()
+						  + "/" + type + "/" + filename;
 		String content = IOHelper.readFile(filePath);
 		
 	
 		model.addAttribute("botID", botID);
 		model.addAttribute("botName",botInfo.getBotname());
+		model.addAttribute("type",type);
 		model.addAttribute("filename", filename);
 		System.out.println("Content: " + content);
 		model.addAttribute("content", content);
@@ -212,33 +233,40 @@ public class BotController {
 		return "redirect:/bot/dataFiles";
 	}
 	
-	@RequestMapping(value="/saveFile", method = RequestMethod.POST)
+	@RequestMapping(value="/saveFile", method = RequestMethod.POST,produces="text/html; charset=UTF-8")
 	public String saveFile(@RequestParam("botID") String botID,
+						  @RequestParam("type") String type,
 						  @RequestParam("filename") String filename,
 						  @RequestParam("content") String content,
 			  				ModelMap model) throws IOException{
 		System.out.println("File Save Request!");
+		System.out.println("Content: " + content);
+		content = new String(content.getBytes("iso-8859-1"),"UTF-8");
+		System.out.println("Content: " + content);
 		BotInfo botInfo = botService.getById(botID);
-		String filePath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getBotname()
-						  + "/aiml/" + filename;
-		
+		String filePath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getId()
+						  + "/" + type + "/" + filename;
+		System.out.println("FilePath: " + filePath);
 		IOHelper.writeFile(filePath, content.trim());
 		String botPath = AppConfig.BOTS_PATH + botInfo.getUserID();
+		if (type.equals("aiml")){
 		Bot bot = new Bot(botInfo.getBotname(),botPath,"aiml2csv");
 		bot.writeAIMLIFFiles();
+		}
 		//Restart Bot
 		System.out.println("RESTART BOT!");
 		FunctionHelper.stopBot(botInfo);
 		FunctionHelper.startBot(botInfo);
-		ArrayList<String> files = IOHelper.getFiles(botInfo,"aiml");
+		ArrayList<String> files = IOHelper.getFiles(botInfo,type);
 		model.addAttribute("botID",botID);
+		model.addAttribute("type",type);
 		model.addAttribute("files", files);
 		return "bot/showFiles";
 	}
 	
 
 	
-	@RequestMapping("/upload")
+	/*@RequestMapping("/upload")
 	public ModelAndView getUploadForm(
 			@RequestParam("type") String type,
 			@RequestParam("botID") String botID,
@@ -248,10 +276,62 @@ public class BotController {
 		model.addObject("type",type);
 		model.addObject("botID", botID);
 		return model;
-		
+	}*/
+	
+	@RequestMapping("/upload")
+	public ModelAndView getUploadForm(
+			@RequestParam("type") String type,
+			@RequestParam("botID") String botID) {
+		ModelAndView model = new  ModelAndView("uploadForm");
+		model.addObject("type",type);
+		model.addObject("botID", botID);
+		return model;
 	}
-
+	
 	@RequestMapping("/fileUpload")
+	public ModelAndView fileUploaded(
+			@RequestParam("botID") String botID,
+			@RequestParam("type") String type,
+			@RequestParam("file") MultipartFile[] files) {
+
+		System.out.println("BotID: " + botID);
+		BotInfo botInfo = botService.getById(botID);
+		for (int i = 0; i < files.length; i++) {
+			MultipartFile file = files[i];
+			String name = ""+i;
+			try {
+				byte[] bytes = file.getBytes();
+				// Create the file on server
+				
+				File newFile = new File(AppConfig.BOTS_PATH  + botInfo.getUserID() 
+						+ "/bots/" + botInfo.getId() + "/" + type + "/" + file.getOriginalFilename());
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(newFile));
+				stream.write(bytes);
+				stream.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage()) ;
+			}
+		}
+		
+		ModelAndView model = new ModelAndView("bot/showFiles");
+		String botPath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/";
+		if (type.equals("aiml")){
+			Bot bot = new Bot(botInfo.getId(),botPath,"aiml2csv");
+			bot.writeAIMLIFFiles();
+		}
+		else {
+			FunctionHelper.stopBot(botInfo);
+			FunctionHelper.startBot(botInfo);
+		}
+		ArrayList<String> filess = IOHelper.getFiles(botInfo,type);
+		model.addObject("botID",botID);		
+		model.addObject("type",type);
+		model.addObject("files", filess);
+		return model;
+	}
+	
+	/*@RequestMapping("/fileUpload")
 	public ModelAndView fileUploaded(
 			@RequestParam("botID") String botID,
 			@RequestParam("type") String type,
@@ -307,7 +387,7 @@ public class BotController {
 		model.addObject("type",type);
 		model.addObject("files", files);
 		return model;
-	}
+	}*/
 	
 	@RequestMapping(value="/new")
 	public String createBot( ModelMap model){
@@ -351,7 +431,7 @@ public class BotController {
 		
 		//boolean havaNewBot = FunctionHelper.createNewBot(botName);
 		BotInfo botInfo = botService.getById(botID);
-		String folderPath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getBotname();
+		String folderPath = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getId();
 		botService.delete(botInfo);
 		FileUtils.deleteDirectory(new File(folderPath));
 		/*String userID = principal.getName();

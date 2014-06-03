@@ -245,5 +245,6 @@
     <script>
     $(".simpleConfirm").confirm();
     </script>
+    <%@ include file="../share/footer.jsp" %>
 </body>
 </html>

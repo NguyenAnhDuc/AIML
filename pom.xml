@@ -61,6 +61,15 @@
     		</dependencies>
     		<build>
     			<plugins>
+    				<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>tomcat-maven-plugin</artifactId>
+						<configuration>
+							<url>http://127.0.0.1:8080/manager</url>
+							<server>TomcatServer</server>
+							<path>/AIML</path>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-shade-plugin</artifactId>
@@ -413,7 +422,7 @@
         <dependency>
      		 <groupId>AbBot</groupId>
      		 <artifactId>Ab</artifactId>
-     		 <version>1.0</version>
+     		 <version>1.1</version>
     	</dependency>
 	</dependencies>
 
@@ -454,11 +463,11 @@
 	<repositories>
 		<repository>
 		  <id>fti-internal-maven-repo</id>
-		  <url>http://10.1.12.73/archiva/repository/internal/</url>
+		  <url>http://10.3.9.233/archiva/repository/internal/</url>
 		</repository>
 		<repository>
 		  <id>fti-snapshot-maven-repo</id>
-		  <url>http://10.1.12.73/archiva/repository/snapshots/</url>
+		  <url>http://10.3.9.233/archiva/repository/snapshots/</url>
 		</repository>
 		
 		<repository>

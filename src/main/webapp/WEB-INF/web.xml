@@ -57,7 +57,7 @@
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/error.html</location>
+		<location>/WEB-INF/pages/share/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>

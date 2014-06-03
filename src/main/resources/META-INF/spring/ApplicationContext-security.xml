@@ -12,10 +12,12 @@
     </authentication-manager>
     
    <http auto-config="true">
-		<intercept-url pattern="/bot/**" access="ROLE_USER" />
+   		<intercept-url pattern="/bot/**" access="ROLE_USER" />
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+   		
 		<form-login login-page="/login" default-target-url="/welcome"
-			authentication-failure-url="/loginfailed" />
+			authentication-failure-url="/loginfailed" 
+    always-use-default-target="false" />
 		<logout logout-success-url="/logout" />
 	</http> 
     

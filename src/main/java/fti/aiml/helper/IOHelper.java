@@ -57,12 +57,11 @@ public static String readFile(String fileName) throws IOException{
 		File fileSrc = new File(srcDirectory);
 		File fileDes = new File(desDirectory);
 		fileDes.mkdir();
-		
 		FileUtils.copyDirectory(fileSrc,fileDes);
 	}
 	
 	public static ArrayList<String> getFiles(BotInfo botInfo, String type){
-		String folderPath = AppConfig.BOTS_PATH  + botInfo.getUserID() +  "/bots/" + botInfo.getBotname() +  "/" + type;   
+		String folderPath = AppConfig.BOTS_PATH  + botInfo.getUserID() +  "/bots/" + botInfo.getId() +  "/" + type;   
 		System.out.println(folderPath);
 		ArrayList<String> listFiles = new ArrayList<String>();
 		File folder = new File(folderPath);
@@ -79,7 +78,7 @@ public static String readFile(String fileName) throws IOException{
 	
 	public static boolean createNewBotDirectory(BotInfo botInfo){
 		System.out.println("CREATING NEW BOT DIRECTORY");
-		String newBotPath = AppConfig.BOTS_PATH +  botInfo.getUserID() + "/bots/" + botInfo.getBotname();
+		String newBotPath = AppConfig.BOTS_PATH +  botInfo.getUserID() + "/bots/" + botInfo.getId();
 		try{
 			IOHelper.copyDirectory(AppConfig.TEMPLATE_BOT_DIRECTORY, newBotPath);
 			System.out.println("Bot Path: " + newBotPath);
@@ -92,7 +91,7 @@ public static String readFile(String fileName) throws IOException{
 	
 	public static boolean createEmptyBotDirectory(BotInfo botInfo){
 		System.out.println("CREATING NEW BOT DIRECTORY");
-		String newBotPath = AppConfig.BOTS_PATH +  botInfo.getUserID() + "/bots/" + botInfo.getBotname();
+		String newBotPath = AppConfig.BOTS_PATH +  botInfo.getUserID() + "/bots/" + botInfo.getId();
 		try{
 			IOHelper.copyDirectory(AppConfig.EMPTY_BOT_DIRECTORY, newBotPath);
 			System.out.println("Bot Path: " + newBotPath);
@@ -105,9 +104,9 @@ public static String readFile(String fileName) throws IOException{
 	
 	public static void deleteFile(BotInfo botInfo,String filename, String type){
 		if (type.equals("aiml")){
-			String fileAIML = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getBotname()
+			String fileAIML = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getId()
 							  + "/aiml/" +  filename;
-			String fileAIMIF = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getBotname()
+			String fileAIMIF = AppConfig.BOTS_PATH + botInfo.getUserID() + "/bots/" + botInfo.getId()
 					 		  + "/aimlif/" + filename + ".csv";
 			FileUtils.deleteQuietly(new File(fileAIML));
 			FileUtils.deleteQuietly(new File(fileAIMIF));

@@ -219,5 +219,6 @@
 			
 		</div>
 	</div>
+	<%@ include file="../share/footer.jsp" %>
 </body>
 </html>

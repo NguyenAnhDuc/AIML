@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,7 @@ import fti.aiml.service.BotService;
 import fti.aiml.service.UserService;
 
 @Controller
-@RequestMapping("/API")
+@RequestMapping("/api")
 public class APIController {
 	private static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static FileHandler fileHandler;
@@ -47,11 +48,22 @@ public class APIController {
 		LOGGER.addHandler(fileHandler);
 	}
 	
-	//TEST
-	@RequestMapping(value="/test123", method = RequestMethod.GET)
+	
+	//DEVELOPER
+	@RequestMapping(value="developer", method = RequestMethod.GET)
+	public String developer(Principal principal, ModelMap model){
+		String  username = principal.getName();
+		model.addAttribute("username", username);
+		return "developer";
+	}
+	
+	//GET TOKEN
+	@RequestMapping(value="{username}/token", method = RequestMethod.GET, produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String test(@RequestParam("userID") String userID){
-		return "This is a test function in Robot Api";
+	public String token(@PathVariable("username") String  username){
+		String token = userService.getByUsername(username).getToken();
+		System.out.println("Token: " + token);
+		return token;
 	}
 	
 	@RequestMapping(value="", method = RequestMethod.GET)
@@ -74,9 +86,9 @@ public class APIController {
 	
 	
 	//BOTS: xem danh sach tat ca cac bot cua 1 user
-	@RequestMapping(value="/bots", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value="{username}/bots", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public BasicDBObject UserBots(@RequestParam("userID") String username,@RequestParam("token") String token){
+	public BasicDBObject UserBots(@PathVariable("username") String username,@RequestParam("token") String token){
 		LOGGER.info("BOTS REQUEST: " + "userID: " + username + " | token: " + token);
 		BasicDBObject jsonResult = new BasicDBObject();
 		try{
@@ -95,9 +107,9 @@ public class APIController {
 	}
 	
 	//BOT: SHOW A BOT DETAIL
-	@RequestMapping(value="/botdetail", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value="{username}/bots/{botID}", method = RequestMethod.GET, produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public BasicDBObject UserBot(@RequestParam("userID") String username,@RequestParam("botID") String botID,@RequestParam("token") String token){
+	public BasicDBObject UserBot(@PathVariable("username") String username,@PathVariable("botID") String botID,@RequestParam("token") String token){
 		LOGGER.info("BOT REQUEST: " + "userID: " + username + " | botID: " + botID + " | token: " + token);
 		BasicDBObject jsonResult = new BasicDBObject();
 		try{
@@ -111,7 +123,7 @@ public class APIController {
 		}
 		BotInfo bot = new BotInfo();
 		try{
-			bot = botService.getByBotname(botID);
+			bot = botService.getById(botID);
 			if (!bot.getUserID().equals(username)){
 				return ResponseHelper.buildFailResponse(402);
 			}
@@ -124,10 +136,10 @@ public class APIController {
 	}
 	
 	//BOT: CHAT API 
-	@RequestMapping(value="/chatapi", method = RequestMethod.POST, produces="application/json; charset=UTF-8")
+	@RequestMapping(value="{username}/bots/{botID}/chat", method = RequestMethod.POST, produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public BasicDBObject chatapi(@RequestParam("userID") String username, @RequestParam("token") String token,
-								 @RequestParam("botID") String botname, @RequestParam("data") String data){
+	public BasicDBObject chatapi(@PathVariable("username") String username, @RequestParam("token") String token,
+								 @PathVariable("botID") String botname, @RequestParam("data") String data){
 		BasicDBObject jsonResult = new BasicDBObject();
 		try{
 			UserAccount user = userService.getByUsername(username);
@@ -140,7 +152,7 @@ public class APIController {
 		}
 		BotInfo bot = new BotInfo();
 		try{
-			bot = botService.getByBotname(botname);
+			bot = botService.getById(botname);
 			if (!bot.getUserID().equals(username)){
 				return ResponseHelper.buildFailResponse(402);
 			}

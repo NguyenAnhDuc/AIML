@@ -63,10 +63,10 @@
                 </div><!-- /.row -->
                 <br>
               </div>
-              <div class="well well-sm" id="botchat"></div>
+              <!-- <div class="well well-sm" id="botchat"></div> -->
               <div class="alert alert-info">
                 Matched:
-                <a href="#" class="alert-link" id="filename"> </a>
+                <a href="" class="alert-link" id="filenameMatch"> </a>
               </div>
               <div class="row">
                 <div class="col-lg-6">
@@ -94,12 +94,14 @@
               </div>
             </div>
           </div>
+          <jsp:include page="../share/footer.jsp" />
         </body>
         <script type="text/javascript">
           $("#askbtn").click(function(){  
 	         //alert("searchtext");
 	         var searchtext = $('#questiontxt').val();  
 	         var botID = $("#botIDtxt").val();
+	         
 	         $.ajax({  
 	           type: "POST",  
 	           url: "/AIML/bot/chattrain",
@@ -107,11 +109,14 @@
 	           data: "question="+encodeURIComponent( searchtext )+"&botID=" + encodeURIComponent(botID),  
 	           success: function(result){  
 	        	   var htmlResult = "Bot: " + result.bot ;
-	        	   $('#filename').html(result.filename)
+	        	   var link = "data/edit?filename=" + result.filename + "&type=aiml" + "&botID=" + botID;
+	        	   $('#filenameMatch').html(result.filename);
+	        	   $("#filenameMatch").attr("href",link);
 	               $('#botchat').html(htmlResult);
 	               $('#templateText').val(result.template);
 	               $('#newAnswerText').val(result.bot);
 	               $('#filenameText').val(result.filename);
+	               
 	           }, 
 	           error: function(result){  
 		            alert("Error");

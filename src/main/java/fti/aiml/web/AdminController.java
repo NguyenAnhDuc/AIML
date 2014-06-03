@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import fti.aiml.UserAccountStatus;
 import fti.aiml.domail.BotInfo;
 import fti.aiml.domail.UserAccount;
+import fti.aiml.helper.AppConfig;
 import fti.aiml.helper.FunctionHelper;
 import fti.aiml.helper.IOHelper;
 import fti.aiml.service.BotService;
@@ -28,6 +29,19 @@ public class AdminController {
 	@Autowired private BotService botService;
 	@Autowired private PasswordEncoder encoder; 
 	public static final int maxUser = 100;
+	
+	@RequestMapping(value = "/ViewLogFile",method = RequestMethod.GET)
+	public String ViewLog(ModelMap model){
+		String content = "";
+		try{
+			content = IOHelper.readFile(AppConfig.LOG_FILE);
+		}
+		catch(Exception ex){
+			content = "No Content In Log File";
+		}
+		model.addAttribute("content", content);
+		return "admin/viewLog";
+	}
 	
 	@RequestMapping(value = "/users",method = RequestMethod.GET)
 	public String Users(ModelMap model){

@@ -20,7 +20,7 @@ public class BotService {
 		Assert.isNull(bot.getId());
 
 		// duplicate botName
-		if (botRepository.findByBotname(bot.getBotname()) != null) {
+		if (botRepository.findById(bot.getId()) != null) {
 			return false;
 		}
 		//bot.setEnabled(false);

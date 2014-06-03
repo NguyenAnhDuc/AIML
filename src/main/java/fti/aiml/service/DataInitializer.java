@@ -16,6 +16,8 @@ import fti.aiml.UserAccountStatus;
 import fti.aiml.domail.BotInfo;
 import fti.aiml.domail.Role;
 import fti.aiml.domail.UserAccount;
+import fti.aiml.helper.FunctionHelper;
+import fti.aiml.helper.IOHelper;
 
 @Component
 @Profile(value="DEV")
@@ -33,7 +35,7 @@ public class DataInitializer {
     
     @Autowired protected DbService dbService;
 	
-	@PostConstruct
+	
 	public void init() {
 		logger.debug("Data Initialize");
 		String demoPasswordEncoded = encoder.encode("demo");
@@ -77,5 +79,7 @@ public class DataInitializer {
 		bot.setLanguage("EN");
 		bot.setUserID("fti");
 		botService.create(bot);
+		System.out.println("BotID: " + bot.getId() + "| bot name: " + bot.getBotname() );
+		IOHelper.createNewBotDirectory(bot);
 	}
 }
