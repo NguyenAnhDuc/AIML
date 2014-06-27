@@ -1,12 +1,14 @@
 package fti.aiml.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fti.aiml.UserAccountStatus;
 import fti.aiml.domail.BotInfo;
+import fti.aiml.domail.LogInfo;
 import fti.aiml.domail.UserAccount;
 import fti.aiml.helper.AppConfig;
 import fti.aiml.helper.FunctionHelper;
 import fti.aiml.helper.IOHelper;
 import fti.aiml.service.BotService;
+import fti.aiml.service.LogService;
 import fti.aiml.service.UserService;
 
 @Controller
@@ -27,9 +31,10 @@ import fti.aiml.service.UserService;
 public class AdminController {
 	@Autowired private UserService userService;
 	@Autowired private BotService botService;
+	@Autowired private LogService logService;
 	@Autowired private PasswordEncoder encoder; 
-	public static final int maxUser = 100;
-	
+	private static final int maxUser = 100;
+	private static final int NUMBER_LOG_GET = 5000;
 	@RequestMapping(value = "/ViewLogFile",method = RequestMethod.GET)
 	public String ViewLog(ModelMap model){
 		String content = "";
@@ -46,9 +51,29 @@ public class AdminController {
 	@RequestMapping(value = "/users",method = RequestMethod.GET)
 	public String Users(ModelMap model){
 		List<UserAccount> users = userService.allUsers();
-		model.addAttribute("users", users);
+		Map<UserAccount, Integer> userBots = new HashMap<UserAccount, Integer>();
+		for (UserAccount user : users){
+			userBots.put(user, botService.getBotByUserID(user.getUsername()).size());
+		}
+		model.addAttribute("users", userBots);
 		return "admin/showUsers";
 	}
+	
+	@RequestMapping(value = "/logs",method = RequestMethod.GET)
+	public String Logs(ModelMap model){
+		List<LogInfo> logs = logService.findAll();
+		Map<UserAccount, Integer> userBots = new HashMap<UserAccount, Integer>();
+		List<LogInfo> reverseLogs = new ArrayList<LogInfo>();
+		int count = 0;
+		for (int i=logs.size()-1;i>=0;i--) {
+			reverseLogs.add(logs.get(i));
+			count ++ ;
+			if (count > NUMBER_LOG_GET) break;
+		}
+		model.addAttribute("logs", reverseLogs);
+		return "admin/logs";
+	}
+	
 	
 	@RequestMapping(value = "/user/delete",method = RequestMethod.GET)
 	public String Delate(ModelMap model,@RequestParam("username") String username){
@@ -82,11 +107,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/user/create",method = RequestMethod.POST)
-	public String Users(ModelMap model,@RequestParam("username") String username, @RequestParam("password") String password){
+	public String Users(ModelMap model,@RequestParam("username") String username, @RequestParam("password") String password,
+						@RequestParam("isAdmin") String isAdmin){
 		UserAccount user = new UserAccount();
 		user.setUsername(username);
 		user.setPassword(encoder.encode(password));
-		user.addRole(userService.getRole("ROLE_USER"));
+		if (isAdmin.trim().toLowerCase().equals("true"))
+			user.addRole(userService.getRole("ROLE_ADMIN"));
+		else 
+			user.addRole(userService.getRole("ROLE_USER"));
 		//user.setToken("token");
 		user.setToken(UUID.randomUUID().toString());
 		userService.create(user);
@@ -133,7 +162,7 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value="/startMaxBot",method = RequestMethod.GET)
+	/*@RequestMapping(value="/startMaxBot",method = RequestMethod.GET)
 	@ResponseBody
 	public String start3000bot(@RequestParam("maxbot") int maxbot){
 		for (int i=1;i<=maxbot;i++){
@@ -141,7 +170,7 @@ public class AdminController {
 			FunctionHelper.startBot(botInfo);
 		}
 		return "success";
-	}
+	}*/
 	
 	@RequestMapping(value = "/user/new",method = RequestMethod.GET)
 	public String newUser(ModelMap model){
@@ -155,7 +184,7 @@ public class AdminController {
 		return "success " + count + "bot have started!";
 	}
 	
-	@RequestMapping(value = "/startNumberBot",method = RequestMethod.GET)
+	/*@RequestMapping(value = "/startNumberBot",method = RequestMethod.GET)
 	@ResponseBody
 	public String startNumberBot(@RequestParam("maxbot") int maxbot){
 		int  count = 0;
@@ -169,7 +198,7 @@ public class AdminController {
 			}
 		}
 		return  "" + count;
-	}
+	}*/
 
 	
 }

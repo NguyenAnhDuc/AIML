@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <!--[if lt IE 7]>
   <html class="no-js lt-ie9 lt-ie8 lt-ie7">
@@ -88,10 +90,9 @@
 	<script type="text/javascript">
 		function createbot() {
 			//alert("searchtext");
-			var option = "";
+			var option="";
 			if ($("#defaultCheckbox").is(":Checked")) option = "default";
 			var name = $('#botname').val();
-			 $("#defaultCheckbox").is(":Checked")	
 			if (!name) {
 				$('#bot-error-alert').removeClass('hide');
 				return;

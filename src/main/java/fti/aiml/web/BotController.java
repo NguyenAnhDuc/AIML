@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
@@ -17,6 +18,8 @@ import javax.annotation.PostConstruct;
 import org.alicebot.ab.Bot;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mongodb.BasicDBObject;
 
 import fti.aiml.domail.BotInfo;
+import fti.aiml.domail.LogInfo;
 import fti.aiml.entity.BotResponseInfo;
 import fti.aiml.entity.RunningBot;
 import fti.aiml.helper.AppConfig;
@@ -36,6 +40,8 @@ import fti.aiml.helper.FunctionHelper;
 import fti.aiml.helper.IOHelper;
 import fti.aiml.helper.ResponseHelper;
 import fti.aiml.service.BotService;
+import fti.aiml.service.LogService;
+import fti.aiml.service.UserService;
 import fti.aiml.validator.FileValidator;
 
 
@@ -45,6 +51,8 @@ import fti.aiml.validator.FileValidator;
 public class BotController {
 	@Autowired
 	private BotService botService;
+	@Autowired
+	private LogService logService;
 	@Autowired
 	FileValidator fileValidator;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -65,7 +73,19 @@ public class BotController {
 		String userID = principal.getName();
 		model.addAttribute("username", userID);
 		List<BotInfo> botsinfo = botService.getBotByUserID(userID);
+		for (BotInfo botinfo : botsinfo){
+			System.out.println("Bot info: " + botinfo.getBotname());
+		}
 		model.addAttribute("botsinfo", botsinfo);
+		boolean isAdmin = false;
+		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)  SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for (SimpleGrantedAuthority authority : authorities){
+			System.out.println("Role: " + authority.getAuthority());
+			if (authority.getAuthority().equals("ROLE_ADMIN"))
+				isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		System.out.println("Is admin: " + isAdmin);
 		return "bot/showBots";
  
 	}
@@ -84,6 +104,8 @@ public class BotController {
 	public String chat(@RequestParam("botID") String botID,  ModelMap model) {
 		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - welcome()");
 		model.addAttribute("botID",botID);
+		BotInfo bot = botService.getById(botID);
+		model.addAttribute("botName",bot.getBotname());
 		return "bot/Chat";
  	}
 	
@@ -113,6 +135,14 @@ public class BotController {
 			LOGGER.info("Question: " + question);
 			String answer = FunctionHelper.getAnswer(bot.getBot(), question);
 			LOGGER.info("Answer: " + answer);
+			//LOGS
+			LogInfo log = new LogInfo();
+			log.setAction("botchat");
+			log.setActionDetail(""+botID+":"+question);
+			log.setUserID(bot.getBotInfo().getUserID());
+			log.setTimeStamp(new Date().toGMTString());
+			logService.create(log);
+			
 			return ResponseHelper.successChat(botInfo.getBotname(),question,answer);
 		}
 		catch (Exception ex){
@@ -131,6 +161,14 @@ public class BotController {
 			RunningBot bot = FunctionHelper.startBot(botInfo);
 			System.out.println("Start bot! DONE!");
 			BotResponseInfo response = FunctionHelper.getResponse(bot.getBot(), question);
+			//LOGS
+			LogInfo log = new LogInfo();
+			log.setAction("questiontrain");
+			log.setActionDetail(""+botID+":"+question);
+			log.setUserID(bot.getBotInfo().getUserID());
+			log.setTimeStamp(new Date().toGMTString());
+			logService.create(log);
+			
 			return ResponseHelper.successChatTrain(question,response);
 		}
 		catch (Exception ex){
@@ -151,7 +189,13 @@ public class BotController {
 			LOGGER.info("BotID: " + botID);
 			LOGGER.info("Question: " + question);
 			LOGGER.info("New Answer(Train): " + newAnswer);
-			
+			//LOGS
+			LogInfo log = new LogInfo();
+			log.setAction("bottrain");
+			log.setActionDetail(""+botID+":"+question+":"+newAnswer);
+			log.setUserID(botInfo.getUserID());
+			log.setTimeStamp(new Date().toGMTString());
+			logService.create(log);
 			return ResponseHelper.success();
 		}
 		catch (Exception ex){
@@ -401,10 +445,12 @@ public class BotController {
 							@RequestParam("option") String option,
 							ModelMap model, Principal principal){
 		System.out.println("CREATE BOT REQUEST!");
+		System.out.println("bot name: " + name + "| language: " + language + "| option: " + option);
 		List<BotInfo> botsinfo = botService.getBotByUserID(principal.getName());
 		BasicDBObject result = new BasicDBObject();
 		for (BotInfo botinfo : botsinfo){
 			if (botinfo.getBotname().equals(name.trim())){
+				System.out.println("Create bot error");
 				result.append("status", "error");
 				return result;
 			}

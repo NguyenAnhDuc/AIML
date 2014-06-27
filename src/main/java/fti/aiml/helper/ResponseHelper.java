@@ -79,6 +79,17 @@ public class ResponseHelper {
 		return result;
 	}
 	
+	public static BasicDBObject successChatAPI(String botname, String question, String answer) {
+		// TODO Auto-generated method stub
+		BasicDBObject result = new BasicDBObject();
+		result.append("status", "success");
+		result.append("request", question);
+		result.append("response", answer);
+		result.append("botname", botname);
+		result.append("time_stamp", "" + new Date().getTime());
+		return result;
+	}
+	
 	public static BasicDBObject successChatTrain(String question, BotResponseInfo response) {
 		// TODO Auto-generated method stub
 		BasicDBObject result = new BasicDBObject();
@@ -125,9 +136,9 @@ public class ResponseHelper {
 	public static String getErrorMessage(int errorCode){
         String errorMessage="";
         switch (errorCode){
-        	case 401: errorMessage = "Username or token is not valid";
+        	case 400: errorMessage = "Bad Request";
 		     	break;
-        	case 402: errorMessage = "Authorization failled";
+        	case 401: errorMessage = "UnAuthorized";
 	     	break;
         	case 403: errorMessage = "The request has been refused";
 			   break;
@@ -172,7 +183,7 @@ public class ResponseHelper {
 		BasicDBObject json = new BasicDBObject();
 		BasicDBObject rep = new BasicDBObject();
 		try {
-			json.put("result", false);
+			json.put("result", "failed");
 			rep.put("error_code",errorCode);
 			rep.put("error_message", getErrorMessage(errorCode));
 			json.put("data", rep);

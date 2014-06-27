@@ -43,9 +43,9 @@ public class BotService {
 		return botRepository.findById(id);
 	}
 	
-	public BotInfo getByBotname(String botname){
+	/*public BotInfo getByBotname(String botname){
 		return botRepository.findByBotname(botname);
-	}
+	}*/
 	
 	public List<BotInfo> getBotByUserID(String userID){
 		return botRepository.findByUserID(userID);

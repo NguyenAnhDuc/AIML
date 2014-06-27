@@ -22,6 +22,8 @@
 		<div id="content-body">
 			<section class="token">
 				<div class="row">
+					<div id="login-alert"
+					class="alert alert-danger col-sm-12 hidden">Please <a href="/AIML/login">log in </a> to get access token!</div>
 					<div class="form-horizontal">
 						<div class="form-group">
 						<label class="col-sm-2 control-label" for="txtAccessToken">Access Token: </label>
@@ -47,21 +49,21 @@
 					<tbody>
 						<tr>
 							<td>GET</td>
-							<td><code>http://sandbox.api.simsimi.com/request.p</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots</code></td>
 							<td>Show all bot of a user </td>
-							<td>userID, token </td>
+							<td>token </td>
 						</tr>
 						<tr>
 							<td>GET</td>
-							<td><code>http://sandbox.api.simsimi.com/request.p</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots/{botID}</code></td>
 							<td>Show detailed information </td>
-							<td>userID, botID, token </td>
+							<td>botID, token </td>
 						</tr>
 						<tr>
 							<td>GET</td>
-							<td><code>http://sandbox.api.simsimi.com/request.p</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots/{botID}/chat</code></td>
 							<td>Bot Chat API </td>
-							<td>userID, botID, data, token </td>
+							<td>botID, data, token </td>
 						</tr>
 					</tbody>
 				</table>
@@ -77,11 +79,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>userID</td>
-							<td>String</td>
-							<td>Your userID</td>
-						</tr>
 						<tr>
 							<td>botID</td>
 							<td>String</td>
@@ -111,15 +108,15 @@
 					<tbody>
 						<tr>
 							<td>Bots API</td>
-							<td><code>http://sandbox.api.simsimi.com/request.p?key=your_trial_key&amp;lc=en&amp;ft=1.0&amp;text=hi</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots?token=[your_token]</code></td>
 						</tr>
 						<tr>
 							<td>Bot Detail API</td>
-							<td><code>http://api.simsimi.com/request.p?key=your_paid_key&amp;lc=en&amp;ft=1.0&amp;text=hi</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots/[your_botID]?token=[your_token]</code></td>
 						</tr>
 						<tr>
 							<td>Chat API</td>
-							<td><code>http://api.simsimi.com/request.p?key=your_paid_key&amp;lc=en&amp;ft=1.0&amp;text=hi</code></td>
+							<td><code>http://tech.fpt.com.vn/AIML/api/bots/[your_botID]/chat?request=[your_request]&token=[your_token]</code></td>
 						</tr>
 					</tbody>
 				</table>
@@ -139,16 +136,14 @@
 					<tbody>
 						<tr>
 							<td>result</td>
-							<td>Integer</td>
-							<td>100-OK.<br>400-Bad Request.<br>401-Unauthorized.<br>404-Not
-								found.<br>500-Server Error.
+							<td>String</td>
+							<td>Success<br>Failed(400-Bad Request | 401-Unauthorized | 404-NotFound | 500-Server Error)
 							</td>
 						</tr>
-						<tr>
-							<td>id</td>
+						<!-- <tr>
+							<td>time_stamp</td>
 							<td>Integer</td>
-							<td>Response id. (you can get only if returning result is
-								100)</td>
+							<td>Response time</td>
 						</tr>
 						<tr>
 							<td>response</td>
@@ -160,12 +155,18 @@
 							<td>msg</td>
 							<td>String</td>
 							<td>Result msg(Description of result code)</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
-				<h4>Sample response:</h4>
-				<code> { "result": 100, "response": "Who are you?!", "id":
-					13185569, "msg": "OK." } </code>
+				<h4>Sample requests and responses:</h4>
+				<h5>Bot Requests: </h5>
+				<code> GET: http://tech.fpt.com.vn/AIML/api/bots?token=fa13b7cb-c876-168a-a69d-2cc41c4186eb </code></br>
+				<code> {"result":"success","bots":[{"id":"5355acb2acdb015239030beb","name":"FPT_EN","language":"EN"},{"id":"5355b250acdb015239030bec","name":"FPT_VN","language":"VN"},{"id":"535eeaffacdb6c8b2ae05125","name":"FPT_TEST","language":"VN"}],"time_stamp":"1402010389151"} </code>
+				<h5>Chat Requests: </h5>
+				<code> GET: http://tech.fpt.com.vn/AIML/api/bots/539acb62e4b09a0b687150a3/chat?request=hello&token=fa13b7cb-c876-168a-a69d-2cc41c4186eb </code></br>
+				<code> {"status":"success","request":"hello","response":"Hi!  I can really feel your smile today.","botname":"FPT_VN","time_stamp":"1402913123001"} </code>
+				
+				<h5><div class="alert alert-danger col-sm-10"> You must replace your request with your access token and your botID!</div> </h5>
 			</section>
 		</div>
 	</div>
@@ -175,11 +176,19 @@ $("#btnGetToken")
 .click(
 		function() {
 			//alert("searchtext");
-			var username = $("#txtUsername").val();
-			var url = "/AIML/api/" + username + "/token";
-			$.get(url,function(data){
-			    $("#txtAccessToken").val(data);
-			  });
+			var url = "/AIML/api/token";
+			$.ajax({
+			    url: "/AIML/api/token",
+			    type: 'GET',
+			    success: function(data){ 
+			    	 if (data === "null")  $("#login-alert").removeClass("hidden");
+			    	 else $("#txtAccessToken").val(data);
+			    },
+			    error: function(data) {
+			        $("login-alert").removeClass("hidden");//or whatever
+			    }
+			});
+		
 		});
 </script>
 </body>

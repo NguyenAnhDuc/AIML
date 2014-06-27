@@ -45,9 +45,6 @@ public class DataInitializerTest {
 		
 		user = service.getByUsername("ted");
 		assertThat(user.getRolesCSV(), is("ROLE_USER,ROLE_ADMIN"));
-
-		BotInfo bot = botService.getByBotname("test");
-		assertThat(bot.getLanguage(), is("EN"));
 		
 	}
 }

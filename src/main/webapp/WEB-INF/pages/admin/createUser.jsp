@@ -60,6 +60,8 @@
 						<input id="username" type="text" class="form-control" id="inputUserName" name="name"
 							placeholder="User Name" required>
 					</div>
+				</div>
+				<div class="form-group">
 					<label  class="col-sm-2 control-label">Password</label>
 					<div class="col-sm-10">
 						<input id="password" type="password" class="form-control" id="inputPassword" name="password"
@@ -67,7 +69,15 @@
 					</div>
 					
 				</div>
-				
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-xs-6 col-md-4">
+						<label class="checkbox"> <input id="defaultCheckbox"
+							type="checkbox"> Is Admin
+						</label>
+					</div>
+				</div>
+				</br>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
@@ -93,13 +103,15 @@
 			return;
 		}
 		
-	
+		var isAdmin = "";
+		if ($("#defaultCheckbox").is(":Checked")) isAdmin = "true";
+		
 		
 		$.ajax({
 			type : "POST",
 			url: "/AIML/admin/user/create",
 			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			data : "username=" + encodeURIComponent(name) + "&password=" + encodeURIComponent(password),
+			data : "username=" + encodeURIComponent(name) + "&password=" + encodeURIComponent(password) + "&isAdmin=" + encodeURIComponent(isAdmin),
 			success : function(result) {
 				if (result.status === "error"){
 					$('#error-alert').removeClass('hide');

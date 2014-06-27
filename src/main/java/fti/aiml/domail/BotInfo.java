@@ -1,8 +1,6 @@
 package fti.aiml.domail;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -10,10 +8,10 @@ public class BotInfo {
 
 	@Id
 	private String id;
-	@Indexed(unique=true, direction=IndexDirection.DESCENDING, dropDups=true)
-	private String botname;
+	
 	private String language;
 	private String userID;
+	private String botname;
 	
 	
 	public String getId() {

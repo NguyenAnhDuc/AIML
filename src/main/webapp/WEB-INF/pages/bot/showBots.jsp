@@ -146,7 +146,15 @@
 
 	
 </script>
-<%@ include file="../share/header.jsp"%>
+	<c:choose>
+      <c:when test="${isAdmin}">
+      	<%@ include file="../share/AdminHeader.jsp"%>   
+      </c:when>
+
+      <c:otherwise>
+		<%@ include file="../share/header.jsp"%>   
+      </c:otherwise>
+    </c:choose>
 </head>
 
 
@@ -213,8 +221,11 @@
 									<td>
 										<a href="dataFiles?type=aiml&botID=${botinfo.id}">AIML</a>
 										/<a href="dataFiles?type=config&botID=${botinfo.id}">Config</a>
-										/<a href="dataFiles?type=maps&botID=${botinfo.id}">Maps</a>
-										/<a href="dataFiles?type=sets&botID=${botinfo.id}">Sets</a>
+										<c:if test="${isAdmin}">
+										   /<a href="dataFiles?type=aimlif&botID=${botinfo.id}">AIMLIF</a>
+										   /<a href="dataFiles?type=maps&botID=${botinfo.id}">Maps</a>
+										   /<a href="dataFiles?type=sets&botID=${botinfo.id}">Sets</a>
+										</c:if> 
 									</td>
 
 									<td>
@@ -237,6 +248,7 @@
 				<a class="btn btn-info" href="new">Add new AIML bot</a>
 			</div>
 		</div>
+		
 		
 		
 	</div>

@@ -39,7 +39,8 @@ Built with Divshot - http://www.divshot.com
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/AIML/admin/users">Admin</a>
+      <a class="navbar-brand" href="/AIML/admin/users">Users</a>
+      <a class="navbar-brand" href="/AIML/bot/show">Bots</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,7 +51,7 @@ Built with Divshot - http://www.divshot.com
       </ul>
       --%>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<c:url value="ViewLogFile" />">View Logs</a></li>
+        <li><a href="<c:url value="/admin/logs" />">View Logs</a></li>
         <li><a href="<c:url value="/j_spring_security_logout" />">Sign out</a></li>
         
         

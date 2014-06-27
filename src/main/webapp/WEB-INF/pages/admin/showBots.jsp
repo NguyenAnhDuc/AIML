@@ -201,8 +201,10 @@
 									<td>
 										<a href="dataFiles?botID=${botinfo.id}">AIML</a>
 										/<a href="dataFiles?botID=${botinfo.id}">Config</a>
-										/<a href="dataFiles?botID=${botinfo.id}">Maps</a>
-										/<a href="dataFiles?botID=${botinfo.id}">Sets</a>
+										<c:if test="${isAdmin}">
+										   /<a href="dataFiles?botID=${botinfo.id}">Maps</a>
+										   /<a href="dataFiles?botID=${botinfo.id}">Sets</a>
+										</c:if>  										
 									</td>
 									
 									<td>

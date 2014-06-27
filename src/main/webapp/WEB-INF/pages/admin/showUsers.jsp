@@ -181,8 +181,9 @@
 							<tr>
 								<th>#</th>
 								<th> UserName</th>
-								<!-- <th>Language</th> -->
+							    <th> Roles</th>
 								<th> Status </th>
+								<th> Bots </th>
 								<th> Action </th>
 								<!-- <th> Action </th> -->
 								
@@ -195,19 +196,21 @@
 								<% i++; %>
 								<tr>
 									<td><%= i %></td>
-									<td>${user.username}</td>
-									<td>${user.status}</td>
+									<td>${user.getKey().username}</td>
+									<td>${user.getKey().getRoles().get(0).getId()}</td>
+									<td>${user.getKey().status}</td>
+									<td>${user.getValue()} bots</td>
 									<c:choose>
-										<c:when test="${user.enabled==true}">
-											<td><a href="user/disable?username=${user.username}">Disable</a></td>
+										<c:when test="${user.getKey().enabled==true}">
+											<td><a href="user/disable?username=${user.getKey().username}">Disable</a></td>
 										</c:when>
 										<c:otherwise>
-											<td><a href="user/enable?username=${user.username}">Enable </a> </td>
+											<td><a href="user/enable?username=${user.getKey().username}">Enable </a> </td>
 										</c:otherwise>
 									</c:choose>
 									<td>
 										<div class="pull-right action-buttons">
-										<a href="user/delete?username=${user.username}" class="simpleConfirm trash"><span class="glyphicon glyphicon-trash"></span></a>
+										<a href="user/delete?username=${user.getKey().username}" class="simpleConfirm trash"><span class="glyphicon glyphicon-trash"></span></a>
 										</div>
 									</td>
 								</tr>

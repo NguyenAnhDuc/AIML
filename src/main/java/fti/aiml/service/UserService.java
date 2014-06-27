@@ -52,6 +52,10 @@ public class UserService {
 	public UserAccount getByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
+
+	public UserAccount getByToken(String token){
+		return userRepository.findByToken(token);
+	}
 	
 	public List<UserAccount> allUsers(){
 		return userRepository.findAll();

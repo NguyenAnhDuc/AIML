@@ -59,4 +59,8 @@ public abstract class AbstractMongoTest {
 		jdoe.setUsername("jdoe");
 		return jdoe;
 	}
+	
+	public static void main(String[] args){
+		
+	}
 }

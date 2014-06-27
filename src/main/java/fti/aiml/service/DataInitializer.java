@@ -48,8 +48,8 @@ public class DataInitializer {
 		operations.insert(new Role("ROLE_ADMIN"), "role");
 		
 		UserAccount user = new UserAccount();
-		user.setFirstname("Bob");
-		user.setLastname("Doe");
+		user.setFirstname("fti");
+		user.setLastname("fti");
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_USER"));
 		user.setUsername("fti");		
@@ -61,8 +61,8 @@ public class DataInitializer {
 		userService.save(user);
 		
 		user = new UserAccount();
-		user.setFirstname("Jim");
-		user.setLastname("Doe");
+		user.setFirstname("admin");
+		user.setLastname("admin");
 		user.setPassword(demoPasswordEncoded);
 		user.addRole(userService.getRole("ROLE_ADMIN"));
 		user.setUsername("admin");	

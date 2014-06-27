@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <!--[if lt IE 7]>
   <html class="no-js lt-ie9 lt-ie8 lt-ie7">
@@ -64,9 +66,7 @@
 		
 		<div class="row">
 		    <div class="col-md-2 col-md-offset-5">
-		    	<h2>
-				CHAT
-				</h2>
+		    	<h4>${botName}>> Chat</h4>
 		    </div>
 		</div>
 				

@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.repository.Query;
 import fti.aiml.domail.UserAccount;
 
 public interface UserAccountRepository extends MongoRepository<UserAccount, String> {
-	
 	UserAccount findByUsername(final String username);
 	UserAccount findByLastname(final String lastname);
 	List<UserAccount> findByUsernameAndPassword(final String username, final String password);
@@ -16,4 +15,5 @@ public interface UserAccountRepository extends MongoRepository<UserAccount, Stri
 	List<UserAccount> findByUsernameLike(final String username);
 	@Query("{ 'username' : ?0, 'password' : ?1 }")
 	List<UserAccount> findByUsernameAndPasswordQuery(final String username, final String password);
+	UserAccount findByToken(String token);
 }
