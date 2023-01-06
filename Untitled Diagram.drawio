@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-06T07:14:58.660Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="maZmKOVdHPba-66QgetF" version="20.8.1" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-06T07:17:46.152Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="RJvPxGZwCZVQcCDRV28v" version="20.8.1" type="github">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
     <mxGraphModel dx="1026" dy="536" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -32,37 +32,37 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-3" value="Mailbox Screen" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="100" width="120" height="60" as="geometry" />
+          <mxGeometry x="210" y="100" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-4" target="Pklu7Gm3VZekunS7p_zU-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-4" value="Popup Mailbox 1 (gift)" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="30" width="120" height="60" as="geometry" />
+          <mxGeometry x="410" y="30" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-5" value="Popup Mailbox 2" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="180" width="120" height="60" as="geometry" />
+          <mxGeometry x="410" y="180" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-6" value="Claim Popup" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="30" width="120" height="60" as="geometry" />
+          <mxGeometry x="590" y="30" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-8" value="Call Api Get Mail box&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="255" y="170" width="130" height="30" as="geometry" />
+          <mxGeometry x="205" y="170" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-9" value="If unread mailbox, call API UserHaveReadMail" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="100" width="145" height="30" as="geometry" />
+          <mxGeometry x="397.5" y="100" width="145" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-10" value="Claim All (Button)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="340" width="120" height="40" as="geometry" />
+          <mxGeometry x="410" y="340" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-11" value="If unread mailbox, call API UserHaveReadMail" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="460" y="260" width="145" height="30" as="geometry" />
+          <mxGeometry x="410" y="260" width="145" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-12" value="Call API ClaimAll" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="470" y="400" width="145" height="30" as="geometry" />
+          <mxGeometry x="410" y="400" width="145" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Pklu7Gm3VZekunS7p_zU-13" value="Call API ClaimGift" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="660" y="100" width="145" height="30" as="geometry" />
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-13" value="Call API ListItemClaim?" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="100" width="145" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-2" target="Pklu7Gm3VZekunS7p_zU-3">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -90,6 +90,12 @@
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-34" value="gift" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="Pklu7Gm3VZekunS7p_zU-25">
           <mxGeometry y="180" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-37" value="Claim Button" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-40" value="Call API ClaimGift" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="750" y="100" width="120" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
