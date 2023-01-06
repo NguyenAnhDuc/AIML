@@ -1,1 +1,49 @@
-<mxfile host="app.diagrams.net" modified="2023-01-06T07:49:25.558Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.8.1" etag="ZQDWToNCAp9amQaxEalV" type="github"><diagram id="bEucCFK-bxo_M8VuyUv0">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2023-01-06T08:07:38.627Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.8.1" etag="Ze706pjWp02ucgbGsw2V" type="github">
+  <diagram id="AClgX9iASibgPkBJ4wGl" name="Page-1">
+    <mxGraphModel dx="1026" dy="536" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-1" target="l1qTqF6ylQMX3r4s0BGG-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-1" target="l1qTqF6ylQMX3r4s0BGG-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-1" value="Home Screen" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-2" target="l1qTqF6ylQMX3r4s0BGG-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-14" value="Back Button" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-2" target="l1qTqF6ylQMX3r4s0BGG-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-2" value="Daily Mission Screen" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-3" value="Call Api DailyMission" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="285" y="120" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-4" target="l1qTqF6ylQMX3r4s0BGG-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-15" value="Back Button" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1qTqF6ylQMX3r4s0BGG-4" target="l1qTqF6ylQMX3r4s0BGG-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-4" value="Weekly Mission Tab" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-6" value="Call API WeeklyMission" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="275" y="250" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-9" value="Claim Button" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="l1qTqF6ylQMX3r4s0BGG-12" value="Call API ClaimMission" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="610" y="145" width="140" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
