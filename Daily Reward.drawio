@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-06T07:44:02.802Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.8.1" etag="-XghMbDcPRJz0e_uAJbQ" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-06T07:47:40.840Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.8.1" etag="U5ypGRgqW5cFxoMCinF3" type="github">
   <diagram id="YjH4A-h3UoiQG95Wum6k" name="Page-1">
     <mxGraphModel dx="1026" dy="536" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -38,11 +38,27 @@
         <mxCell id="cEQqdzMdcJtUVDmGanqC-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cEQqdzMdcJtUVDmGanqC-7" target="cEQqdzMdcJtUVDmGanqC-12">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="cEQqdzMdcJtUVDmGanqC-19" value="Exit Popup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cEQqdzMdcJtUVDmGanqC-7" target="cEQqdzMdcJtUVDmGanqC-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="70" />
+              <mxPoint x="320" y="70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="cEQqdzMdcJtUVDmGanqC-7" value="Popup Reward (List các item )" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="480" y="110" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="cEQqdzMdcJtUVDmGanqC-11" value="Call API Daily Reward List Item?&lt;br&gt;Hoặc call ở API trước?" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="440" y="175" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cEQqdzMdcJtUVDmGanqC-20" value="Any Space&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cEQqdzMdcJtUVDmGanqC-12" target="cEQqdzMdcJtUVDmGanqC-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="70" />
+              <mxPoint x="570" y="70" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="cEQqdzMdcJtUVDmGanqC-12" value="Item Button (để nhận thưởng)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="720" y="110" width="120" height="60" as="geometry" />
