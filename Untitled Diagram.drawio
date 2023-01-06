@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-06T07:19:33.941Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="yIM7PH5DCVvoqDeQO6ep" version="20.8.1" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-06T07:23:51.896Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="LFXTXW2PUnPPBhN2h_2C" version="20.8.1" type="github">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
     <mxGraphModel dx="1026" dy="536" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -31,11 +31,22 @@
             <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-43" value="Back Button" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-3" target="Pklu7Gm3VZekunS7p_zU-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-3" value="Mailbox Screen" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="210" y="100" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-4" target="Pklu7Gm3VZekunS7p_zU-6">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.633;entryY=-0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-4" target="Pklu7Gm3VZekunS7p_zU-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-47" value="Exit Popup" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Pklu7Gm3VZekunS7p_zU-44">
+          <mxGeometry x="-0.2615" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-4" value="Popup Mailbox 1 (gift)" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="410" y="30" width="120" height="60" as="geometry" />
@@ -44,6 +55,9 @@
           <mxGeometry x="410" y="180" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-6" target="Pklu7Gm3VZekunS7p_zU-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Pklu7Gm3VZekunS7p_zU-48" value="Exit popup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.667;entryY=-0.008;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Pklu7Gm3VZekunS7p_zU-6" target="Pklu7Gm3VZekunS7p_zU-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Pklu7Gm3VZekunS7p_zU-6" value="Claim Popup" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
